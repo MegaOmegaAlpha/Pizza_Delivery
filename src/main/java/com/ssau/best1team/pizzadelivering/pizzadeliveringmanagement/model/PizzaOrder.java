@@ -13,10 +13,10 @@ public class PizzaOrder {
     @Column
     private int amount;
 
-    @Column(name = "dough_type")
+    @Column(name = "dough_type", length = 50)
     private String doughType;
 
-    @Column(name = "pizza_size")
+    @Column(name = "pizza_size", length = 10)
     private String pizzaSize;
 
     @ManyToOne

@@ -3,12 +3,13 @@ package com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.model;
 import javax.persistence.*;
 import java.util.List;
 
+@Inheritance
 @Entity
 @Table(name = "user_t")
-public class User {
+public abstract class User {
 
     @Id
-    @Column
+    @Column(length = 50)
     protected String login;
 
     @Column
@@ -24,6 +25,10 @@ public class User {
 
     public String getLogin() {
         return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {

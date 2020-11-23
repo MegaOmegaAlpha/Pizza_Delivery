@@ -11,7 +11,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
-    @Column(length = 50)
+    @Column(length = 10)
     private String name;
 
     @ManyToMany(mappedBy = "roleList")

@@ -4,12 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table
-public class Courier {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
+public class Courier extends User {
 
     @Column(name = "full_name", length = 50)
     private String fullName;
@@ -29,8 +24,11 @@ public class Courier {
     public Courier() {
     }
 
-    public long getId() {
-        return id;
+    public Courier(String fullName, String identityNumber, String driverLicense, String telephone) {
+        this.fullName = fullName;
+        this.identityNumber = identityNumber;
+        this.driverLicense = driverLicense;
+        this.telephone = telephone;
     }
 
     public String getFullName() {

@@ -5,20 +5,15 @@ import java.sql.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "customer")
-public class Customer {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long id;
+public class Customer extends User {
 
     @Column(name = "birth_date")
     private Date birthDate;
 
-    @Column
+    @Column(length = 13)
     private String telephone;
 
-    @Column
+    @Column(length = 50)
     private String email;
 
     @Column(name = "current_number_of_orders")
@@ -41,8 +36,12 @@ public class Customer {
     public Customer() {
     }
 
-    public long getId() {
-        return id;
+    public Customer(Date birthDate, String telephone, String email, int currentNumberOfOrders, String fullName) {
+        this.birthDate = birthDate;
+        this.telephone = telephone;
+        this.email = email;
+        this.currentNumberOfOrders = currentNumberOfOrders;
+        this.fullName = fullName;
     }
 
     public Date getBirthDate() {

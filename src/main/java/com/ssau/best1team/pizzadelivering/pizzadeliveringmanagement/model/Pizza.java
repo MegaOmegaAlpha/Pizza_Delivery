@@ -17,7 +17,7 @@ public class Pizza {
     @Column
     private String composition;
 
-    @Column
+    @Column(length = 50)
     private String photo;
 
     @Column

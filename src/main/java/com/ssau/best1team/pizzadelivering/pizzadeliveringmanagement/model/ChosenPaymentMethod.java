@@ -11,7 +11,7 @@ public class ChosenPaymentMethod {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
-    @Column(name = "card_number", length = 16)
+    @Column(name = "card_number", length = 20)
     private String cardNumber;
 
     @Column(length = 3)

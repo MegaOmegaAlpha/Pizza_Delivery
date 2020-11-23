@@ -19,7 +19,7 @@ public class Order {
     @Column(name = "order_time")
     private Time orderTime;
 
-    @Column(name = "time_of_last_schoosen_payment_methodtatus_change")
+    @Column(name = "time_of_last_status_change")
     private Time lastStatusUpdateTime;
 
     @Column(name = "total_price")
