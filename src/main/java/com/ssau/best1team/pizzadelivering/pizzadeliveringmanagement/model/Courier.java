@@ -6,9 +6,6 @@ import java.util.List;
 @Entity
 public class Courier extends User {
 
-    @Column(name = "full_name", length = 50)
-    private String fullName;
-
     @Column(name = "identity_number", length = 50)
     private String identityNumber;
 
@@ -29,14 +26,6 @@ public class Courier extends User {
         this.identityNumber = identityNumber;
         this.driverLicense = driverLicense;
         this.telephone = telephone;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public String getIdentityNumber() {

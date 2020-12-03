@@ -19,9 +19,6 @@ public class Customer extends User {
     @Column(name = "current_number_of_orders")
     private int currentNumberOfOrders;
 
-    @Column(name = "full_name", length = 50)
-    private String fullName;
-
     @ManyToMany
     @JoinTable(
             name = "customer_address",
@@ -74,14 +71,6 @@ public class Customer extends User {
 
     public void setCurrentNumberOfOrders(int currentNumberOfOrders) {
         this.currentNumberOfOrders = currentNumberOfOrders;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public List<Address> getAddresses() {

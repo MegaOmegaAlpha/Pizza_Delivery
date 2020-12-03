@@ -9,11 +9,17 @@ import java.util.List;
 public abstract class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    protected long id;
+
     @Column(length = 50)
     protected String login;
 
     @Column
     protected String password;
+
+    @Column(name = "full_name", length = 50)
+    protected String fullName;
 
     @ManyToMany
     @JoinTable(
@@ -22,6 +28,10 @@ public abstract class User {
             inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
     private List<Role> roleList;
+
+    public long getId() {
+        return id;
+    }
 
     public String getLogin() {
         return login;
@@ -37,6 +47,14 @@ public abstract class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public List<Role> getRoleList() {
