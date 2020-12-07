@@ -2,7 +2,7 @@ package com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.dto;
 
 import java.sql.Time;
 
-public class OrderDelivery {
+public class OrderDeliveryDTO {
 
     private long id;
     private Time timeStart;

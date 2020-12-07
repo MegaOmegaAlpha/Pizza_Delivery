@@ -8,17 +8,18 @@ public class PizzaDTO {
      * todo: хранить в бейс64? хранить путь до файла? какой объект возвращать?
      */
 
-    private int id;
+    private long id;
     private String name;
+    private String composition;
     private MultipartFile multipartFile;
     private int price;
     private byte[] bytes;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -52,5 +53,13 @@ public class PizzaDTO {
 
     public void setBytes(byte[] bytes) {
         this.bytes = bytes;
+    }
+
+    public String getComposition() {
+        return composition;
+    }
+
+    public void setComposition(String composition) {
+        this.composition = composition;
     }
 }
