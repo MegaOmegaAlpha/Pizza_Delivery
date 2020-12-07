@@ -28,6 +28,7 @@ public class CustomerOrderResource {
     private ChosenPaymentMethodRepository chosenPaymentMethodRepository;
     private PizzaOrderRepository pizzaOrderRepository;
     private PizzaRepository pizzaRepository;
+    private PaymentMethodRepository paymentMethodRepository;
 
     @Autowired
     public CustomerOrderResource(ModelMapper modelMapper,
@@ -37,7 +38,8 @@ public class CustomerOrderResource {
                                  AddressRepository addressRepository,
                                  ChosenPaymentMethodRepository chosenPaymentMethodRepository,
                                  PizzaOrderRepository pizzaOrderRepository,
-                                 PizzaRepository pizzaRepository) {
+                                 PizzaRepository pizzaRepository,
+                                 PaymentMethodRepository paymentMethodRepository) {
         this.modelMapper = modelMapper;
         this.orderRepository = orderRepository;
         this.customerRepository = customerRepository;
@@ -46,6 +48,7 @@ public class CustomerOrderResource {
         this.chosenPaymentMethodRepository = chosenPaymentMethodRepository;
         this.pizzaOrderRepository = pizzaOrderRepository;
         this.pizzaRepository = pizzaRepository;
+        this.paymentMethodRepository = paymentMethodRepository;
     }
 
     public List<OrderDTO> getCustomerOrders(long customerId) {
@@ -60,12 +63,21 @@ public class CustomerOrderResource {
     }
 
     public OrderDTO createOrder(long customerId, OrderDTO orderDTO) throws EntityNotFoundException {
+        Customer customer = (Customer) customerRepository.findById(customerId).orElseThrow(EntityNotFoundException::new);
+
         Order toSave = new Order();
         toSave.setOrderStatus(orderStatusRepository.findById(orderDTO.getOrderStatus().getId()).orElseThrow(EntityNotFoundException::new));
         toSave.setLastStatusUpdateTime(Time.valueOf(LocalTime.now()));
         toSave.setAddress(addressRepository.findById(orderDTO.getAddress().getId()).orElseThrow(EntityNotFoundException::new));
+
+        ChosenPaymentMethod chosenPaymentMethod = new ChosenPaymentMethod();
+        chosenPaymentMethod.setCardNumber(orderDTO.getChosenPaymentMethod().getCardNumber());
+        chosenPaymentMethod.setCvc(orderDTO.getChosenPaymentMethod().getCvc());
+        chosenPaymentMethod.setCustomer(customer);
+        chosenPaymentMethod.setPaymentMethod(paymentMethodRepository.findById(orderDTO.getChosenPaymentMethod().getPaymentMethod().getId()).orElseThrow(EntityNotFoundException::new));
         toSave.setChosenPaymentMethod(chosenPaymentMethodRepository.findById(orderDTO.getChosenPaymentMethod().getId()).orElseThrow(EntityNotFoundException::new));
-        toSave.setCustomer((Customer) customerRepository.findById(customerId).orElseThrow(EntityNotFoundException::new));
+
+        toSave.setCustomer(customer);
         toSave.setCommentary(orderDTO.getCommentary());
         toSave.setOrderDate(new Date(System.currentTimeMillis()));
         toSave.setOrderTime(Time.valueOf(LocalTime.now()));
