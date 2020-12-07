@@ -75,7 +75,10 @@ public class CustomerOrderResource {
         chosenPaymentMethod.setCvc(orderDTO.getChosenPaymentMethod().getCvc());
         chosenPaymentMethod.setCustomer(customer);
         chosenPaymentMethod.setPaymentMethod(paymentMethodRepository.findById(orderDTO.getChosenPaymentMethod().getPaymentMethod().getId()).orElseThrow(EntityNotFoundException::new));
-        toSave.setChosenPaymentMethod(chosenPaymentMethodRepository.findById(orderDTO.getChosenPaymentMethod().getId()).orElseThrow(EntityNotFoundException::new));
+
+        chosenPaymentMethod = chosenPaymentMethodRepository.save(chosenPaymentMethod);
+
+        toSave.setChosenPaymentMethod(chosenPaymentMethod);
 
         toSave.setCustomer(customer);
         toSave.setCommentary(orderDTO.getCommentary());
