@@ -29,7 +29,7 @@ public class CustomerController {
 
     @PostMapping(value = "/register")
     public CustomerDTO register(@RequestBody CustomerDTO customerDTO) {
-
+        return customerService.createCustomer(customerDTO);
     }
 
 }

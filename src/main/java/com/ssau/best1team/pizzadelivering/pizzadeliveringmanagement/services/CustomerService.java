@@ -19,9 +19,10 @@ public class CustomerService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public CustomerService(CustomerRepository customerRepository, ModelMapper modelMapper) {
+    public CustomerService(CustomerRepository customerRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
         this.customerRepository = customerRepository;
         this.modelMapper = modelMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public CustomerDTO findById(long customerId) throws EntityNotFoundException {
@@ -35,6 +36,18 @@ public class CustomerService {
         customer.setFullName(customerDTO.getFullName());
         customer.setBirthDate((Date) customerDTO.getBirthDate());
         customer.setLogin(customerDTO.getLogin());
+
+        return convertToDTO(customerRepository.save(customer));
+    }
+
+    public CustomerDTO createCustomer(CustomerDTO customerDTO) {
+        Customer customer = new Customer();
+        customer.setLogin(customerDTO.getLogin());
+        customer.setFullName(customerDTO.getFullName());
+        customer.setBirthDate((Date) customerDTO.getBirthDate());
+        customer.setEmail(customerDTO.getEmail());
+        customer.setTelephone(customerDTO.getTelephone());
+        customer.setPassword(passwordEncoder.encode(customerDTO.getPassword()));
 
         return convertToDTO(customerRepository.save(customer));
     }

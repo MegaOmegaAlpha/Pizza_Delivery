@@ -14,6 +14,7 @@ public class BeanManager {
         return new ModelMapper();
     }
 
+    @Bean
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }

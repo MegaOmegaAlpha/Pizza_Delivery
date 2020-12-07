@@ -1,5 +1,7 @@
 package com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 
 public class CustomerDTO {
@@ -11,6 +13,9 @@ public class CustomerDTO {
     private int currentNumberOfOrders;
     private String fullName;
     private String login;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
 
     public long getId() {
         return id;
@@ -66,5 +71,13 @@ public class CustomerDTO {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
