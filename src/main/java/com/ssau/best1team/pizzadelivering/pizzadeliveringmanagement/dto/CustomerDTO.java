@@ -4,18 +4,19 @@ import java.util.Date;
 
 public class CustomerDTO {
 
-    private int id;
+    private long id;
     private Date birthDate;
     private String telephone;
     private String email;
     private int currentNumberOfOrders;
     private String fullName;
+    private String login;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -57,5 +58,13 @@ public class CustomerDTO {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 }
