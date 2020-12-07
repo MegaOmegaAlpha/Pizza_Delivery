@@ -44,7 +44,7 @@ public class CustomerService {
         Customer customer = new Customer();
         customer.setLogin(customerDTO.getLogin());
         customer.setFullName(customerDTO.getFullName());
-        customer.setBirthDate((Date) customerDTO.getBirthDate());
+        customer.setBirthDate(new Date(customerDTO.getBirthDate().getTime()));
         customer.setEmail(customerDTO.getEmail());
         customer.setTelephone(customerDTO.getTelephone());
         customer.setPassword(passwordEncoder.encode(customerDTO.getPassword()));
