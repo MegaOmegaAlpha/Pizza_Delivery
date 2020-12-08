@@ -34,7 +34,7 @@ public class CustomerService {
         customer.setTelephone(customerDTO.getTelephone());
         customer.setEmail(customerDTO.getEmail());
         customer.setFullName(customerDTO.getFullName());
-        customer.setBirthDate((Date) customerDTO.getBirthDate());
+        customer.setBirthDate(new Date(customerDTO.getBirthDate().getTime()));
         customer.setLogin(customerDTO.getLogin());
 
         return convertToDTO(customerRepository.save(customer));
