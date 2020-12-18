@@ -7,6 +7,10 @@ import java.util.List;
 @Table
 public class Role {
 
+    public static final String CUSTOMER_ROLE = "CUSTOMER";
+    public static final String COURIER_ROLE = "COURIER";
+    public static final String ADMIN_ROLE = "ADMIN";
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;

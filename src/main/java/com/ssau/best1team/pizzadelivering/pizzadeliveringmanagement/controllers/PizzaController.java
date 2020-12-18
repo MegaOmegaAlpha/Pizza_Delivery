@@ -5,6 +5,7 @@ import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.repository.C
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.repository.CustomerRepository;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.services.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,11 +16,6 @@ public class PizzaController {
 
     private PizzaService pizzaService;
 
-    @Autowired
-    CourierRepository courierRepository;
-
-    @Autowired
-    CustomerRepository customerRepository;
 
     @Autowired
     public PizzaController(PizzaService pizzaService) {
@@ -36,12 +32,12 @@ public class PizzaController {
         return pizzaService.findById(id);
     }
 
-    @PostMapping(value = "/pizzas")
+    @PostMapping(value = "admin/pizzas")
     public PizzaDTO save(@RequestBody PizzaDTO pizzaDTO) {
         return pizzaService.save(pizzaDTO);
     }
 
-    @PutMapping(value = "/pizzas")
+    @PutMapping(value = "admin/pizzas")
     public PizzaDTO update(@RequestBody PizzaDTO pizzaDTO) {
         return pizzaService.save(pizzaDTO);
     }

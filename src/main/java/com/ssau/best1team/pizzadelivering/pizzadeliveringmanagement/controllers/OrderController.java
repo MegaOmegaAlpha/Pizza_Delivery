@@ -20,17 +20,17 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @GetMapping(value = "/orders")
+    @GetMapping(value = "admin/orders")
     public List<OrderDTO> getAll() {
         return orderService.findAll();
     }
 
-    @PutMapping(value = "/orders/status")
+    @PutMapping(value = "admin//orders/status")
     public OrderDTO updateOrderStatus(@RequestBody OrderDTO orderDTO) throws EntityNotFoundException {
         return orderService.modifyOrderStatus(orderDTO);
     }
 
-    @GetMapping(value = "/orders/active")
+    @GetMapping(value = "/admin/orders/active")
     public List<OrderDTO> getActiveOrders() {
         return orderService.findAllActive();
     }

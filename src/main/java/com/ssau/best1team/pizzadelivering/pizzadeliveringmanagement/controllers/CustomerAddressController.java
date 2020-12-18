@@ -5,12 +5,13 @@ import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.exceptions.E
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.services.CustomerAddressResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("/api")
 public class CustomerAddressController {
 
     private CustomerAddressResource customerAddressResource;
