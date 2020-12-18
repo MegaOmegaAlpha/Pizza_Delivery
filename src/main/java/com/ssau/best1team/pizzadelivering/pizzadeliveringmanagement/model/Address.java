@@ -1,6 +1,7 @@
 package com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,7 +22,7 @@ public class Address {
     private String flatNumber;
 
     @ManyToMany(mappedBy = "addresses")
-    private List<Customer> customer;
+    private List<Customer> customerList;
 
     @OneToMany(mappedBy = "address")
     private List<Order> orders;
@@ -57,12 +58,12 @@ public class Address {
         this.flatNumber = flatNumber;
     }
 
-    public List<Customer> getUser() {
-        return customer;
+    public List<Customer> getCustomerList() {
+        return customerList;
     }
 
-    public void setUser(List<Customer> customer) {
-        this.customer = customer;
+    public void setCustomerList(List<Customer> customerList) {
+        this.customerList = customerList;
     }
 
     public List<Order> getOrders() {

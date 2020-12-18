@@ -37,13 +37,18 @@ public class CustomerAddressResource {
     }
 
     public AddressDTO saveAddressForUser(long customerId, AddressDTO addressDTO) throws EntityNotFoundException {
+        Customer customer = (Customer) customerRepository.findById(customerId).orElseThrow(EntityNotFoundException::new);
+
         Address address = new Address();
         address.setFlatNumber(addressDTO.getFlatNumber());
         address.setHouse(addressDTO.getHouse());
         address.setStreet(addressDTO.getStreet());
-        address.getUser().add((Customer) customerRepository.findById(customerId).orElseThrow(EntityNotFoundException::new));
 
-        return convertToDTO(addressRepository.save(address));
+        Address saved = addressRepository.save(address);
+        customer.getAddresses().add(saved);
+        customerRepository.save(customer);
+
+        return convertToDTO(saved);
     }
 
     public void remove(long addressId) {
