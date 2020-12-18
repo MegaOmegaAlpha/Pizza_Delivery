@@ -1,11 +1,8 @@
 package com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.controllers;
 
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.dto.PizzaDTO;
-import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.repository.CourierRepository;
-import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.repository.CustomerRepository;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.services.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +12,6 @@ import java.util.List;
 public class PizzaController {
 
     private PizzaService pizzaService;
-
 
     @Autowired
     public PizzaController(PizzaService pizzaService) {

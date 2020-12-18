@@ -3,6 +3,7 @@ package com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.model;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -44,8 +45,9 @@ public class Order {
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @OneToMany(mappedBy = "order")
-    private List<PizzaOrder> pizzaOrderList;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id")
+    private List<PizzaOrder> pizzaOrderList = new ArrayList<>();
 
     @OneToOne
     private OrderDelivery orderDelivery;
@@ -129,11 +131,11 @@ public class Order {
         this.customer = customer;
     }
 
-    public List<PizzaOrder> getProductOrderList() {
+    public List<PizzaOrder> getPizzaOrderList() {
         return pizzaOrderList;
     }
 
-    public void setProductOrderList(List<PizzaOrder> pizzaOrderList) {
+    public void setPizzaOrderList(List<PizzaOrder> pizzaOrderList) {
         this.pizzaOrderList = pizzaOrderList;
     }
 }

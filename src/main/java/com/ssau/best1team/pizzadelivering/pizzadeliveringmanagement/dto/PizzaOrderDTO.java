@@ -8,7 +8,6 @@ public class PizzaOrderDTO {
     private String doughType;
     private String pizzaSize;
     private PizzaDTO pizza;
-    private OrderDTO order;
 
     public long getId() {
         return id;
@@ -48,13 +47,5 @@ public class PizzaOrderDTO {
 
     public void setPizza(PizzaDTO pizza) {
         this.pizza = pizza;
-    }
-
-    public OrderDTO getOrder() {
-        return order;
-    }
-
-    public void setOrder(OrderDTO order) {
-        this.order = order;
     }
 }

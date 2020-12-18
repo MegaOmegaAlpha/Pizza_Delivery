@@ -1,15 +1,14 @@
 package com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.services;
 
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.dto.OrderDTO;
+import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.dto.PizzaOrderDTO;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.exceptions.EntityNotFoundException;
-import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.model.ChosenPaymentMethod;
-import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.model.Customer;
-import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.model.Order;
-import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.model.PizzaOrder;
+import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.model.*;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -62,11 +61,12 @@ public class CustomerOrderResource {
         return convertToDTO(orderRepository.findByCustomerId(customerId, orderId));
     }
 
+    @Transactional
     public OrderDTO createOrder(long customerId, OrderDTO orderDTO) throws EntityNotFoundException {
         Customer customer = (Customer) customerRepository.findById(customerId).orElseThrow(EntityNotFoundException::new);
 
         Order toSave = new Order();
-        toSave.setOrderStatus(orderStatusRepository.findById(orderDTO.getOrderStatus().getId()).orElseThrow(EntityNotFoundException::new));
+        toSave.setOrderStatus(orderStatusRepository.findByName(OrderStatus.PROCESSED).orElseThrow(EntityNotFoundException::new));
         toSave.setLastStatusUpdateTime(Time.valueOf(LocalTime.now()));
         toSave.setAddress(addressRepository.findById(orderDTO.getAddress().getId()).orElseThrow(EntityNotFoundException::new));
 
@@ -85,14 +85,23 @@ public class CustomerOrderResource {
         toSave.setOrderDate(new Date(System.currentTimeMillis()));
         toSave.setOrderTime(Time.valueOf(LocalTime.now()));
 
-        toSave = orderRepository.save(toSave);
-
-        List<PizzaOrder> pizzaOrderList = convertToEntity(orderDTO).getProductOrderList();
-        for (PizzaOrder pizzaOrder : pizzaOrderList) {
-            pizzaOrder.setOrder(toSave);
-            pizzaOrder.setProduct(pizzaRepository.findById(pizzaOrder.getProduct().getId()).orElseThrow(EntityNotFoundException::new));
+        for (PizzaOrderDTO pizzaOrderDTO : orderDTO.getPizzaOrderList()) {
+            PizzaOrder pizzaOrder = new PizzaOrder();
+            pizzaOrder.setPizza(pizzaRepository.findById(pizzaOrderDTO.getPizza().getId()).orElseThrow(EntityNotFoundException::new));
+            pizzaOrder.setPizzaSize(pizzaOrderDTO.getPizzaSize());
+            pizzaOrder.setAmount(pizzaOrderDTO.getAmount());
+            pizzaOrder.setDoughType(pizzaOrderDTO.getDoughType());
+            toSave.getPizzaOrderList().add(pizzaOrder);
         }
-        pizzaOrderRepository.saveAll(pizzaOrderList);
+
+        toSave.setTotalPrice(
+                toSave.getPizzaOrderList()
+                        .stream()
+                        .mapToInt(element -> element.getAmount() * element.getPizza().getPrice())
+                        .sum()
+        );
+
+        toSave = orderRepository.save(toSave);
 
         return convertToDTO(toSave);
     }

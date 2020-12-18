@@ -1,12 +1,15 @@
 package com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ChosenPaymentMethodDTO {
 
     private long id;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String cardNumber;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String cvc;
     private PaymentMethodDTO paymentMethod;
-    private CustomerDTO customer;
 
     public long getId() {
         return id;
@@ -40,11 +43,4 @@ public class ChosenPaymentMethodDTO {
         this.paymentMethod = paymentMethod;
     }
 
-    public CustomerDTO getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(CustomerDTO customer) {
-        this.customer = customer;
-    }
 }

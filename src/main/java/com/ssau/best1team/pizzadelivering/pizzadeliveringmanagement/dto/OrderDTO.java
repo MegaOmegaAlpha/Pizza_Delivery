@@ -2,6 +2,8 @@ package com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.dto;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrderDTO {
 
@@ -15,6 +17,7 @@ public class OrderDTO {
     private AddressDTO address;
     private OrderStatusDTO orderStatus;
     private CustomerDTO customer;
+    private List<PizzaOrderDTO> pizzaOrderList = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -94,5 +97,13 @@ public class OrderDTO {
 
     public void setCustomer(CustomerDTO customer) {
         this.customer = customer;
+    }
+
+    public List<PizzaOrderDTO> getPizzaOrderList() {
+        return pizzaOrderList;
+    }
+
+    public void setPizzaOrderList(List<PizzaOrderDTO> pizzaOrderList) {
+        this.pizzaOrderList = pizzaOrderList;
     }
 }
