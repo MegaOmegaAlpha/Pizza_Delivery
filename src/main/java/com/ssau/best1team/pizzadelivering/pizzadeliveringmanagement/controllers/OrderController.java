@@ -25,9 +25,9 @@ public class OrderController {
         return orderService.findAll();
     }
 
-    @PutMapping(value = "admin//orders/status")
-    public OrderDTO updateOrderStatus(@RequestBody OrderDTO orderDTO) throws EntityNotFoundException {
-        return orderService.modifyOrderStatus(orderDTO);
+    @PutMapping(value = "admin/orders/{orderId}/status/{statusId}")
+    public OrderDTO updateOrderStatus(@PathVariable long orderId, @PathVariable long statusId) throws EntityNotFoundException {
+        return orderService.modifyOrderStatus(orderId, statusId);
     }
 
     @GetMapping(value = "/admin/orders/active")

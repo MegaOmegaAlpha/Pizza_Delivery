@@ -1,6 +1,7 @@
 package com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.services;
 
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.dto.OrderDTO;
+import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.dto.OrderStatusDTO;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.exceptions.EntityNotFoundException;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.exceptions.OrderNotFoundException;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.exceptions.OrderStatusNotFound;
@@ -11,6 +12,7 @@ import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.repository.O
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.sql.Time;
 import java.time.LocalTime;
@@ -43,15 +45,9 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     *
-     * @param orderDTO - order with updated status object inside
-     * @return updated order entity
-     * @throws EntityNotFoundException
-     */
-    public OrderDTO modifyOrderStatus(OrderDTO orderDTO) throws EntityNotFoundException {
-        OrderStatus orderStatus = orderStatusRepository.findById(orderDTO.getOrderStatus().getId()).orElseThrow(OrderStatusNotFound::new);
-        Order orderToUpdate = orderRepository.findById(orderDTO.getId()).orElseThrow(OrderNotFoundException::new);
+    public OrderDTO modifyOrderStatus(long orderId, long statusId) throws EntityNotFoundException {
+        OrderStatus orderStatus = orderStatusRepository.findById(statusId).orElseThrow(OrderStatusNotFound::new);
+        Order orderToUpdate = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
         orderToUpdate.setOrderStatus(orderStatus);
         orderToUpdate.setLastStatusUpdateTime(Time.valueOf(LocalTime.now()));
         return convertToDTO(orderRepository.save(orderToUpdate));
