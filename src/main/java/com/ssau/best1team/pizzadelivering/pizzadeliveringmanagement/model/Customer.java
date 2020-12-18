@@ -19,7 +19,7 @@ public class Customer extends User {
     @Column(name = "current_number_of_orders")
     private int currentNumberOfOrders;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "customer_address",
             joinColumns = {@JoinColumn(name = "customer_id")},

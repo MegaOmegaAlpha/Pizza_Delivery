@@ -21,9 +21,6 @@ public class Address {
     @Column(name = "flat_number", length = 50)
     private String flatNumber;
 
-    @ManyToMany(mappedBy = "addresses")
-    private List<Customer> customerList;
-
     @OneToMany(mappedBy = "address")
     private List<Order> orders;
 
@@ -56,14 +53,6 @@ public class Address {
 
     public void setFlatNumber(String flatNumber) {
         this.flatNumber = flatNumber;
-    }
-
-    public List<Customer> getCustomerList() {
-        return customerList;
-    }
-
-    public void setCustomerList(List<Customer> customerList) {
-        this.customerList = customerList;
     }
 
     public List<Order> getOrders() {

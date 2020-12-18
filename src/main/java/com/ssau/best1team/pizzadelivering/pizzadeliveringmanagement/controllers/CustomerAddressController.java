@@ -31,9 +31,13 @@ public class CustomerAddressController {
         return customerAddressResource.saveAddressForUser(customerId, addressDTO);
     }
 
-    @DeleteMapping(value = "/customer/{customerId}/addresses")
-    public ResponseEntity<Object> removeAddressForUCustomer(@PathVariable long customerId, @RequestBody AddressDTO addressDTO) {
-        customerAddressResource.remove(addressDTO.getId());
+    @DeleteMapping(value = "/customer/{customerId}/addresses/{addressId}")
+    public ResponseEntity<Object> removeAddressForUCustomer(@PathVariable long customerId, @PathVariable long addressId) {
+        try {
+            customerAddressResource.remove(customerId, addressId);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok().build();
     }
 

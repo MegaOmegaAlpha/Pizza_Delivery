@@ -44,15 +44,21 @@ public class CustomerAddressResource {
         address.setHouse(addressDTO.getHouse());
         address.setStreet(addressDTO.getStreet());
 
-        Address saved = addressRepository.save(address);
-        customer.getAddresses().add(saved);
+        //Address saved = addressRepository.save(address);
+        customer.getAddresses().add(address);
         customerRepository.save(customer);
 
-        return convertToDTO(saved);
+        return convertToDTO(address);
     }
 
-    public void remove(long addressId) {
-        addressRepository.deleteById(addressId);
+    public void remove(long customerId, long addressId) throws EntityNotFoundException {
+        Customer customer = (Customer) customerRepository.findById(customerId).orElseThrow(EntityNotFoundException::new);
+        Address address = addressRepository.findById(addressId).orElseThrow(EntityNotFoundException::new);
+
+        customer.getAddresses().remove(address);
+        addressRepository.delete(address);
+
+        customerRepository.save(customer);
     }
 
     private AddressDTO convertToDTO(Address address) {
