@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,11 +45,16 @@ public class CustomerAddressResource {
         address.setHouse(addressDTO.getHouse());
         address.setStreet(addressDTO.getStreet());
 
-        //Address saved = addressRepository.save(address);
         customer.getAddresses().add(address);
-        customerRepository.save(customer);
+        customer = customerRepository.save(customer);
 
-        return convertToDTO(address);
+        Address toReturn = customer.getAddresses()
+                .stream()
+                .sorted((o1, o2) -> (int) (o2.getId() - o1.getId()))
+                .collect(Collectors.toList())
+                .get(0);
+
+        return convertToDTO(toReturn);
     }
 
     public void remove(long customerId, long addressId) throws EntityNotFoundException {
