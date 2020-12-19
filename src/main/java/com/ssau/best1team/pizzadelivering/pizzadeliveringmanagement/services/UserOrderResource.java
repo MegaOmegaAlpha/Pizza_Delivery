@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CustomerOrderResource {
+public class UserOrderResource {
 
     private ModelMapper modelMapper;
     private OrderRepository orderRepository;
@@ -30,15 +30,15 @@ public class CustomerOrderResource {
     private PaymentMethodRepository paymentMethodRepository;
 
     @Autowired
-    public CustomerOrderResource(ModelMapper modelMapper,
-                                 OrderRepository orderRepository,
-                                 CustomerRepository customerRepository,
-                                 OrderStatusRepository orderStatusRepository,
-                                 AddressRepository addressRepository,
-                                 ChosenPaymentMethodRepository chosenPaymentMethodRepository,
-                                 PizzaOrderRepository pizzaOrderRepository,
-                                 PizzaRepository pizzaRepository,
-                                 PaymentMethodRepository paymentMethodRepository) {
+    public UserOrderResource(ModelMapper modelMapper,
+                             OrderRepository orderRepository,
+                             CustomerRepository customerRepository,
+                             OrderStatusRepository orderStatusRepository,
+                             AddressRepository addressRepository,
+                             ChosenPaymentMethodRepository chosenPaymentMethodRepository,
+                             PizzaOrderRepository pizzaOrderRepository,
+                             PizzaRepository pizzaRepository,
+                             PaymentMethodRepository paymentMethodRepository) {
         this.modelMapper = modelMapper;
         this.orderRepository = orderRepository;
         this.customerRepository = customerRepository;
@@ -50,20 +50,20 @@ public class CustomerOrderResource {
         this.paymentMethodRepository = paymentMethodRepository;
     }
 
-    public List<OrderDTO> getCustomerOrders(long customerId) {
-        return orderRepository.findAllByCustomerId(customerId)
+    public List<OrderDTO> getUserOrders(long customerId) {
+        return orderRepository.findAllByUserId(customerId)
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    public OrderDTO getCustomerOrder(long customerId, long orderId) {
+    public OrderDTO getUserOrder(long customerId, long orderId) {
         return convertToDTO(orderRepository.findByCustomerId(customerId, orderId));
     }
 
     @Transactional
-    public OrderDTO createOrder(long customerId, OrderDTO orderDTO) throws EntityNotFoundException {
-        Customer customer = (Customer) customerRepository.findById(customerId).orElseThrow(EntityNotFoundException::new);
+    public OrderDTO createOrder(long userId, OrderDTO orderDTO) throws EntityNotFoundException {
+        User user = customerRepository.findById(userId).orElseThrow(EntityNotFoundException::new);
 
         Order toSave = new Order();
         toSave.setOrderStatus(orderStatusRepository.findByName(OrderStatus.PROCESSED).orElseThrow(EntityNotFoundException::new));
@@ -73,14 +73,14 @@ public class CustomerOrderResource {
         ChosenPaymentMethod chosenPaymentMethod = new ChosenPaymentMethod();
         chosenPaymentMethod.setCardNumber(orderDTO.getChosenPaymentMethod().getCardNumber());
         chosenPaymentMethod.setCvc(orderDTO.getChosenPaymentMethod().getCvc());
-        chosenPaymentMethod.setCustomer(customer);
+        chosenPaymentMethod.setUser(user);
         chosenPaymentMethod.setPaymentMethod(paymentMethodRepository.findById(orderDTO.getChosenPaymentMethod().getPaymentMethod().getId()).orElseThrow(EntityNotFoundException::new));
 
         chosenPaymentMethod = chosenPaymentMethodRepository.save(chosenPaymentMethod);
 
         toSave.setChosenPaymentMethod(chosenPaymentMethod);
 
-        toSave.setCustomer(customer);
+        toSave.setUser(user);
         toSave.setCommentary(orderDTO.getCommentary());
         toSave.setOrderDate(new Date(System.currentTimeMillis()));
         toSave.setOrderTime(Time.valueOf(LocalTime.now()));

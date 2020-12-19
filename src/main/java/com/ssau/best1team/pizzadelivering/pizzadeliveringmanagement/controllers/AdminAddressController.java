@@ -12,29 +12,29 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200")
-public class CustomerAddressController {
+public class AdminAddressController {
 
     private UserAddressResource userAddressResource;
 
     @Autowired
-    public CustomerAddressController(UserAddressResource userAddressResource) {
+    public AdminAddressController(UserAddressResource userAddressResource) {
         this.userAddressResource = userAddressResource;
     }
 
-    @GetMapping(value = "/customer/{customerId}/addresses")
-    public List<AddressDTO> getAddressesForCustomer(@PathVariable long customerId) {
-        return userAddressResource.getAddressesByUserId(customerId);
+    @GetMapping(value = "/admin/{adminId}/addresses")
+    public List<AddressDTO> findAllAddressesForAdmin(@PathVariable long adminId) {
+        return userAddressResource.getAddressesByUserId(adminId);
     }
 
-    @PostMapping(value = "/customer/{customerId}/addresses")
-    public AddressDTO createAddressForUser(@PathVariable long customerId, @RequestBody AddressDTO addressDTO) throws EntityNotFoundException {
-        return userAddressResource.saveAddressForUser(customerId, addressDTO);
+    @PostMapping(value = "/admin/{adminId}/addresses")
+    public AddressDTO findAllAddressesForAdmin(@PathVariable long adminId, @RequestBody AddressDTO addressDTO) throws EntityNotFoundException {
+        return userAddressResource.saveAddressForUser(adminId, addressDTO);
     }
 
-    @DeleteMapping(value = "/customer/{customerId}/addresses/{addressId}")
-    public ResponseEntity<Object> removeAddressForUCustomer(@PathVariable long customerId, @PathVariable long addressId) {
+    @DeleteMapping(value = "/admin/{adminId}/addresses/{addressId}")
+    public ResponseEntity<Object> removeAddressForUCustomer(@PathVariable long adminId, @PathVariable long addressId) {
         try {
-            userAddressResource.remove(customerId, addressId);
+            userAddressResource.remove(adminId, addressId);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
         }

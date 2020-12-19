@@ -15,6 +15,6 @@ public interface AddressRepository extends JpaRepository<Address, Long> {
             value = "select* from address where id in (select a.address_id from customer_address a where a.customer_id = ?1)",
             countQuery = "select count(*) from address where id in (select a.address_id from customer_address a where a.customer_id = ?1)"
     )
-    List<Address> findAllByCustomerId(long customerId);
+    List<Address> findAllByUserId(long customerId);
 
 }

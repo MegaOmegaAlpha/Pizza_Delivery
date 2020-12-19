@@ -51,7 +51,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .antMatchers(HttpMethod.GET, "/api/pizzas").permitAll()
                 .antMatchers("/api/register", "/api/auth").permitAll()
                 .antMatchers("/api/admin/**").hasAuthority(Role.ADMIN_ROLE)
-                .antMatchers("/api/customer/**").hasAuthority(Role.CUSTOMER_ROLE)
+                .antMatchers("/api/customer/**").hasAnyAuthority(Role.CUSTOMER_ROLE, Role.ADMIN_ROLE)
                 .antMatchers("/api/courier/**").hasAuthority(Role.COURIER_ROLE)
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated()

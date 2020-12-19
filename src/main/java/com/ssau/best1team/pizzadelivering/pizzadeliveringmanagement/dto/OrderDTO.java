@@ -16,7 +16,7 @@ public class OrderDTO {
     private ChosenPaymentMethodDTO chosenPaymentMethod;
     private AddressDTO address;
     private OrderStatusDTO orderStatus;
-    private CustomerDTO customer;
+    private UserDTO user;
     private List<PizzaOrderDTO> pizzaOrderList = new ArrayList<>();
 
     public long getId() {
@@ -91,12 +91,12 @@ public class OrderDTO {
         this.orderStatus = orderStatus;
     }
 
-    public CustomerDTO getCustomer() {
-        return customer;
+    public UserDTO getUser() {
+        return user;
     }
 
-    public void setCustomer(CustomerDTO customer) {
-        this.customer = customer;
+    public void setUser(UserDTO user) {
+        this.user = user;
     }
 
     public List<PizzaOrderDTO> getPizzaOrderList() {

@@ -17,7 +17,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     )
     List<Order> findOrdersIgnoringSpecificOrderStatus(long statusToIgnore);
 
-    List<Order> findAllByCustomerId(long customerId);
+    List<Order> findAllByUserId(long customerId);
 
     @Query(
             nativeQuery = true,

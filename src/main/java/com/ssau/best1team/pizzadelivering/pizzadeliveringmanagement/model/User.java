@@ -30,6 +30,17 @@ public abstract class User {
     )
     private List<Role> roleList = new ArrayList<>();
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "customer_address",
+            joinColumns = {@JoinColumn(name = "customer_id")},
+            inverseJoinColumns = {@JoinColumn(name = "address_id")}
+    )
+    private List<Address> addresses;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orderList;
+
     public long getId() {
         return id;
     }
@@ -64,5 +75,21 @@ public abstract class User {
 
     public void setRoleList(List<Role> roleList) {
         this.roleList = roleList;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
     }
 }

@@ -2,7 +2,7 @@ package com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.controllers
 
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.dto.OrderDTO;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.exceptions.EntityNotFoundException;
-import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.services.CustomerOrderResource;
+import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.services.UserOrderResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,26 +13,26 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public class CustomerOrderController {
 
-    private CustomerOrderResource customerOrderResource;
+    private UserOrderResource userOrderResource;
 
     @Autowired
-    public CustomerOrderController(CustomerOrderResource customerOrderResource) {
-        this.customerOrderResource = customerOrderResource;
+    public CustomerOrderController(UserOrderResource userOrderResource) {
+        this.userOrderResource = userOrderResource;
     }
 
     @GetMapping(value = "/customer/{customerId}/orders")
     public List<OrderDTO> getOrdersForCustomer(@PathVariable long customerId) {
-        return customerOrderResource.getCustomerOrders(customerId);
+        return userOrderResource.getUserOrders(customerId);
     }
 
     @GetMapping(value = "/customer/{customerId}/orders/{orderId}")
     public OrderDTO getOrderForCustomer(@PathVariable long customerId, @PathVariable long orderId) {
-        return customerOrderResource.getCustomerOrder(customerId, orderId);
+        return userOrderResource.getUserOrder(customerId, orderId);
     }
 
     @PostMapping(value = "/customer/{customerId}/orders")
     public OrderDTO createOrderForCustomer(@PathVariable long customerId, @RequestBody OrderDTO orderDTO) throws EntityNotFoundException {
-        return customerOrderResource.createOrder(customerId, orderDTO);
+        return userOrderResource.createOrder(customerId, orderDTO);
     }
 
 }

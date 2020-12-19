@@ -43,7 +43,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+    private User user;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
@@ -123,12 +123,20 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setCustomer(Customer customer) {
-        this.customer = customer;
+        this.setUser(customer);
+    }
+
+    public void setAdmin(Administrator administrator) {
+        this.setUser(administrator);
     }
 
     public List<PizzaOrder> getPizzaOrderList() {

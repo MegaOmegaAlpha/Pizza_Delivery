@@ -2,7 +2,6 @@ package com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.model;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.List;
 
 @Entity
 public class Customer extends User {
@@ -18,17 +17,6 @@ public class Customer extends User {
 
     @Column(name = "current_number_of_orders")
     private int currentNumberOfOrders;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "customer_address",
-            joinColumns = {@JoinColumn(name = "customer_id")},
-            inverseJoinColumns = {@JoinColumn(name = "address_id")}
-    )
-    private List<Address> addresses;
-
-    @OneToMany(mappedBy = "customer")
-    private List<Order> orderList;
 
     public Customer() {
     }
@@ -73,19 +61,4 @@ public class Customer extends User {
         this.currentNumberOfOrders = currentNumberOfOrders;
     }
 
-    public List<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
-    }
-
-    public List<Order> getOrderList() {
-        return orderList;
-    }
-
-    public void setOrderList(List<Order> orderList) {
-        this.orderList = orderList;
-    }
 }

@@ -23,7 +23,7 @@ public class ChosenPaymentMethod {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private Customer customer;
+    private User user;
 
     @OneToMany(mappedBy = "chosenPaymentMethod")
     private List<Order> orderList;
@@ -59,12 +59,20 @@ public class ChosenPaymentMethod {
         this.paymentMethod = paymentMethod;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setCustomer(Customer customer) {
-        this.customer = customer;
+        setUser(customer);
+    }
+
+    public void setAdmin(Administrator administrator) {
+        setUser(administrator);
     }
 
     public List<Order> getOrderList() {
