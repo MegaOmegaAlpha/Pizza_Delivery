@@ -5,13 +5,11 @@ import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.dto.JwtAuthe
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.exceptions.EntityNotFoundException;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.services.UserAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthenticationController {
 
     private UserAuthenticationService userAuthenticationService;

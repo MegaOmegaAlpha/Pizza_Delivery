@@ -39,6 +39,8 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .cors()
+                .and()
                 .httpBasic().disable()
                 .csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(entryPoint)
@@ -51,6 +53,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .antMatchers("/api/admin/**").hasAuthority(Role.ADMIN_ROLE)
                 .antMatchers("/api/customer/**").hasAuthority(Role.CUSTOMER_ROLE)
                 .antMatchers("/api/courier/**").hasAuthority(Role.COURIER_ROLE)
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
