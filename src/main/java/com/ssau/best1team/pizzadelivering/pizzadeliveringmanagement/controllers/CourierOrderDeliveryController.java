@@ -1,6 +1,6 @@
 package com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.controllers;
 
-import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.dto.OrderDeliveryDTO;
+import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.dto.OrderDTO;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.services.CourierOrderResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +23,7 @@ public class CourierOrderDeliveryController {
     }
 
     @GetMapping(value = "/courier/{courierId}/orders")
-    public List<OrderDeliveryDTO> getOrdersForCourier(@PathVariable long courierId) {
+    public List<OrderDTO> getOrdersForCourier(@PathVariable long courierId) {
         return courierOrderResource.getOrdersByCourierId(courierId);
     }
 

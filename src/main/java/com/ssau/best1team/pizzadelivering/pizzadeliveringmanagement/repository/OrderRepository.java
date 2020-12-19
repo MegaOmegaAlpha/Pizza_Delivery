@@ -26,4 +26,17 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     )
     Order findByCustomerId(long customerId, long orderId);
 
+    @Query(
+            nativeQuery = true,
+            value = "select* from order_t o " +
+                    "where o.id in (select oo.id" +
+                    "       from order_t oo join order_delivery od on oo.id = od.order_id " +
+                    "       where od.courier_id = ?1)",
+            countQuery = "select count(*) from order_t o " +
+                    "where o.id in (select oo.id" +
+                    "       from order_t oo join order_delivery od on oo.id = od.order_id " +
+                    "       where od.courier_id = ?1)"
+    )
+    List<Order> findOrderForCourier(long courierId);
+
 }

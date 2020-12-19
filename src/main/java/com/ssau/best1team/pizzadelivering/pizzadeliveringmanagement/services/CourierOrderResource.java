@@ -1,6 +1,6 @@
 package com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.services;
 
-import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.dto.OrderDeliveryDTO;
+import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.dto.OrderDTO;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.exceptions.EntityNotFoundException;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.model.Courier;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.model.Order;
@@ -36,8 +36,8 @@ public class CourierOrderResource {
         this.modelMapper = modelMapper;
     }
 
-    public List<OrderDeliveryDTO> getOrdersByCourierId(long courierId) {
-        return orderDeliveryRepository.getAllByCourierId(courierId)
+    public List<OrderDTO> getOrdersByCourierId(long courierId) {
+        return orderRepository.findOrderForCourier(courierId)
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -62,8 +62,8 @@ public class CourierOrderResource {
         orderDeliveryRepository.save(orderDelivery);
     }
 
-    private OrderDeliveryDTO convertToDTO(OrderDelivery delivery) {
-        return modelMapper.map(delivery, OrderDeliveryDTO.class);
+    private OrderDTO convertToDTO(Order order) {
+        return modelMapper.map(order, OrderDTO.class);
     }
 
 }
