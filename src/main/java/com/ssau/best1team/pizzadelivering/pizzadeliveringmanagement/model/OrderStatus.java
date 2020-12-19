@@ -10,7 +10,7 @@ public class OrderStatus {
     public static final String PROCESSED = "Заказ оформлен";
     public static final String COOKING = "Готовится";
     public static final String TAKEN_BY_COURIER = "Передан курьеру";
-    public static final String DELIVERED = "Доставлен";
+    public static final String DELIVERED = "Доставлено";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

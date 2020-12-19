@@ -9,6 +9,9 @@ import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.model.Order;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.model.OrderStatus;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.repository.OrderRepository;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.repository.OrderStatusRepository;
+import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.services.observer.ChangeListener;
+import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.services.observer.Event;
+import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.services.observer.OrderStatusChangeListener;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,7 @@ public class OrderService {
     private OrderRepository orderRepository;
     private OrderStatusRepository orderStatusRepository;
     private ModelMapper modelMapper;
+    private ChangeListener changeListener;
 
     /**
      * todo: эта херня должна содержать айди статуса "доставлено", чтобы фильтровать запросы
@@ -32,10 +36,14 @@ public class OrderService {
     private static final long DELIVERED_ORDER_STATUS = 1;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, OrderStatusRepository orderStatusRepository, ModelMapper modelMapper) {
+    public OrderService(OrderRepository orderRepository,
+                        OrderStatusRepository orderStatusRepository,
+                        ModelMapper modelMapper,
+                        ChangeListener changeListener) {
         this.orderRepository = orderRepository;
         this.orderStatusRepository = orderStatusRepository;
         this.modelMapper = modelMapper;
+        this.changeListener = changeListener;
     }
 
     public List<OrderDTO> findAll() {
@@ -50,7 +58,11 @@ public class OrderService {
         Order orderToUpdate = orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new);
         orderToUpdate.setOrderStatus(orderStatus);
         orderToUpdate.setLastStatusUpdateTime(Time.valueOf(LocalTime.now()));
-        return convertToDTO(orderRepository.save(orderToUpdate));
+
+        Order orderUpdated = orderRepository.save(orderToUpdate);
+        changeListener.update(new Event(orderUpdated.getId(), orderUpdated.getOrderStatus().getName()));
+
+        return convertToDTO(orderUpdated);
     }
 
     public List<OrderDTO> findAllActive() {

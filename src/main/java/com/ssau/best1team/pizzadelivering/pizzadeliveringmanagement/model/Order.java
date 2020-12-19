@@ -49,7 +49,7 @@ public class Order {
     @JoinColumn(name = "order_id")
     private List<PizzaOrder> pizzaOrderList = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(mappedBy = "order")
     private OrderDelivery orderDelivery;
 
     public Order() {
@@ -137,5 +137,13 @@ public class Order {
 
     public void setPizzaOrderList(List<PizzaOrder> pizzaOrderList) {
         this.pizzaOrderList = pizzaOrderList;
+    }
+
+    public OrderDelivery getOrderDelivery() {
+        return orderDelivery;
+    }
+
+    public void setOrderDelivery(OrderDelivery orderDelivery) {
+        this.orderDelivery = orderDelivery;
     }
 }
