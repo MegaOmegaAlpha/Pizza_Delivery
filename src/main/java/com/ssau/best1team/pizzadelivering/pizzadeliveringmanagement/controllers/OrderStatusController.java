@@ -22,7 +22,8 @@ public class OrderStatusController {
         this.orderStatusService = orderStatusService;
     }
 
-    @GetMapping(value = "/admin/order-statuses")
+
+    @GetMapping(value = "/order-statuses")
     public List<OrderStatusDTO> findAll() {
         return orderStatusService.findAll();
     }

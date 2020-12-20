@@ -53,6 +53,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .antMatchers("/api/admin/**").hasAuthority(Role.ADMIN_ROLE)
                 .antMatchers("/api/customer/**").hasAnyAuthority(Role.CUSTOMER_ROLE, Role.ADMIN_ROLE)
                 .antMatchers("/api/courier/**").hasAuthority(Role.COURIER_ROLE)
+                .antMatchers("/api/order-statuses/**").hasAnyAuthority(Role.ADMIN_ROLE, Role.COURIER_ROLE)
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
