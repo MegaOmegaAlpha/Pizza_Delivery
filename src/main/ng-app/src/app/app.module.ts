@@ -35,6 +35,8 @@ import { AddProductModalComponent } from './components/add-product-modal/add-pro
 import { CourierCabinetComponent } from './pages/courier-cabinet/courier-cabinet.component';
 import { CourierOrdersComponent } from './pages/courier-orders/courier-orders.component';
 import {NgxMatFileInputModule} from '@angular-material-components/file-input';
+import { AdminOrdersComponent } from './pages/admin-orders/admin-orders.component';
+import { EditOrderModalComponent } from './components/edit-order-modal/edit-order-modal.component';
 
 
 @NgModule({
@@ -53,7 +55,9 @@ import {NgxMatFileInputModule} from '@angular-material-components/file-input';
         OrderComponent,
         AddProductModalComponent,
         CourierCabinetComponent,
-        CourierOrdersComponent
+        CourierOrdersComponent,
+        AdminOrdersComponent,
+        EditOrderModalComponent
     ],
     imports: [
         CoreModule,
@@ -78,7 +82,7 @@ import {NgxMatFileInputModule} from '@angular-material-components/file-input';
         MatCheckboxModule,
         NgxMatFileInputModule
     ],
-    providers: [ConfirmDialogComponent, AddItemModalComponent, BucketComponent, AddProductModalComponent],
+    providers: [ConfirmDialogComponent, AddItemModalComponent, BucketComponent, AddProductModalComponent, EditOrderModalComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -14,11 +14,9 @@
 
         <ng-container matColumnDef="actionsColumn">
             <mat-header-cell *matHeaderCellDef class="justify-content-center">
-                <fa-icon class="cursor-pointer" [icon]="faPlus" (click)="createNew()"></fa-icon>
             </mat-header-cell>
             <mat-cell *matCellDef="let row" class="justify-content-center">
                 <fa-icon class="cursor-pointer mr-4" [icon]="faEdit" (click)="edit(row)"></fa-icon>
-                <fa-icon class="cursor-pointer" [icon]="faTrash" (click)="delete(row)" ></fa-icon>
             </mat-cell>
         </ng-container>
 

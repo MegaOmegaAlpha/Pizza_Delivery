@@ -23,7 +23,7 @@
 
     <div class="row no-gutters mt-2">
         <mat-form-field>
-            <ngx-mat-file-input formControlName="file">
+            <ngx-mat-file-input (ngModelChange)="onFileSelected($event)" formControlName="file">
             </ngx-mat-file-input>
         </mat-form-field>
     </div>

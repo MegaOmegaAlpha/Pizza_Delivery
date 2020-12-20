@@ -1,1 +1,49 @@
-<p>courier-cabinet works!</p>
+<div class="container" *ngIf="courierId; else loggedOut">
+    <form [formGroup]="form">
+        <h3>Личные данные</h3>
+
+        <div class="row no-gutters w-75 align-items-center mt-3">
+            <div class="col pl-4">
+                <mat-form-field class="w-50">
+                    <mat-label>Ф.И.О</mat-label>
+                    <input matInput formControlName="fullName"/>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row no-gutters w-75 align-items-center mt-3">
+            <div class="col pl-4">
+                <mat-form-field class="w-50">
+                    <mat-label>Ф.И.О</mat-label>
+                    <input matInput formControlName="fullName"/>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row no-gutters w-50 align-items-center mt-3">
+            <div class="col pl-4">
+                <mat-form-field class="w-50">
+                    <mat-label>Дата рождения</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="birthDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row no-gutters w-75 align-items-center mt-3">
+            <div class="col pl-4">
+                <mat-form-field class="w-50">
+                    <mat-label>Ф.И.О</mat-label>
+                    <input matInput formControlName="fullName"/>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</div>
+
+<ng-template #loggedOut>
+    <div class="row mt-4 justify-content-center">
+        <span>Please login</span>
+    </div>
+</ng-template>

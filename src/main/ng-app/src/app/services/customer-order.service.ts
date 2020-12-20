@@ -29,6 +29,7 @@ export class CustomerOrderService {
 
 
 export interface OrderDTO {
+    user?: CustomerDTO;
     orderStatus?: OrderStatusDTO;
     id: number;
     orderDate: string;
