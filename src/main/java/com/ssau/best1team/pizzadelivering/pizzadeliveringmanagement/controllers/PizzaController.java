@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -31,12 +32,12 @@ public class PizzaController {
         return pizzaService.findById(id);
     }
 
-    @PostMapping(value = "admin/pizzas")
-    public PizzaDTO save(@RequestBody PizzaDTO pizzaDTO, @RequestParam("image") MultipartFile pizzaPhoto) {
+    @PostMapping(value = "/admin/pizzas")
+    public PizzaDTO save(@RequestBody PizzaDTO pizzaDTO, @RequestParam("image") MultipartFile pizzaPhoto) throws IOException {
         return pizzaService.save(pizzaDTO, pizzaPhoto);
     }
 
-    @PutMapping(value = "admin/pizzas")
+    @PutMapping(value = "/admin/pizzas")
     public PizzaDTO update(@RequestBody PizzaDTO pizzaDTO) throws EntityNotFoundException {
         return pizzaService.update(pizzaDTO);
     }
