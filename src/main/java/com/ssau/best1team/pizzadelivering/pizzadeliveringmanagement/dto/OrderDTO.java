@@ -17,6 +17,7 @@ public class OrderDTO {
     private AddressDTO address;
     private OrderStatusDTO orderStatus;
     private UserDTO user;
+    private OrderDeliveryDTO orderDelivery;
     private List<PizzaOrderDTO> pizzaOrderList = new ArrayList<>();
 
     public long getId() {
@@ -105,5 +106,13 @@ public class OrderDTO {
 
     public void setPizzaOrderList(List<PizzaOrderDTO> pizzaOrderList) {
         this.pizzaOrderList = pizzaOrderList;
+    }
+
+    public OrderDeliveryDTO getOrderDelivery() {
+        return orderDelivery;
+    }
+
+    public void setOrderDelivery(OrderDeliveryDTO orderDelivery) {
+        this.orderDelivery = orderDelivery;
     }
 }

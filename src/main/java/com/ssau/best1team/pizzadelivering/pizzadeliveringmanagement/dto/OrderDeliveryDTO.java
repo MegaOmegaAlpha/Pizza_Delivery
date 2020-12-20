@@ -8,8 +8,6 @@ public class OrderDeliveryDTO {
     private Time timeStart;
     private Time timeFinish;
     private String details;
-    private OrderDTO order;
-    private CourierDTO courier;
 
     public long getId() {
         return id;
@@ -43,19 +41,4 @@ public class OrderDeliveryDTO {
         this.details = details;
     }
 
-    public OrderDTO getOrder() {
-        return order;
-    }
-
-    public void setOrder(OrderDTO order) {
-        this.order = order;
-    }
-
-    public CourierDTO getCourier() {
-        return courier;
-    }
-
-    public void setCourier(CourierDTO courier) {
-        this.courier = courier;
-    }
 }
