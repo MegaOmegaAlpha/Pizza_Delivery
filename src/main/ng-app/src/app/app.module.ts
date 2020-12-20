@@ -37,6 +37,7 @@ import { CourierOrdersComponent } from './pages/courier-orders/courier-orders.co
 import {NgxMatFileInputModule} from '@angular-material-components/file-input';
 import { AdminOrdersComponent } from './pages/admin-orders/admin-orders.component';
 import { EditOrderModalComponent } from './components/edit-order-modal/edit-order-modal.component';
+import {MatIconModule} from "@angular/material/icon";
 
 
 @NgModule({
@@ -80,7 +81,8 @@ import { EditOrderModalComponent } from './components/edit-order-modal/edit-orde
         MatNativeDateModule,
         MatSelectModule,
         MatCheckboxModule,
-        NgxMatFileInputModule
+        NgxMatFileInputModule,
+        MatIconModule
     ],
     providers: [ConfirmDialogComponent, AddItemModalComponent, BucketComponent, AddProductModalComponent, EditOrderModalComponent],
     bootstrap: [AppComponent]

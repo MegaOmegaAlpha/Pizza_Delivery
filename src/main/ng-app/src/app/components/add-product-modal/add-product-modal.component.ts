@@ -12,8 +12,6 @@ import {ToastrService} from 'ngx-toastr';
 export class AddProductModalComponent implements OnInit {
     form: FormGroup;
 
-    selectedFile: File = null;
-
     constructor(
         public dialogRef: MatDialogRef<AddProductModalComponent>,
         private adminService: AdminService,
@@ -24,13 +22,11 @@ export class AddProductModalComponent implements OnInit {
         this.initForm();
     }
 
-    onFileSelected(event: any): void {
-        this.selectedFile = event;
-    }
-
     addItem(): void {
         const pizza = this.form.value;
-        this.adminService.savePizza(pizza, this.selectedFile, this.selectedFile.name).subscribe(() => {
+        const file = this.form.value.file;
+        debugger
+        this.adminService.savePizza(pizza, file).subscribe(() => {
             this.toasterService.success('Товар успешно сохранен', 'Успех');
             this.closeDialog('');
         });
