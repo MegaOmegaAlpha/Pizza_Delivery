@@ -84,6 +84,7 @@ public class UserOrderResource {
         toSave.setCommentary(orderDTO.getCommentary());
         toSave.setOrderDate(new Date(System.currentTimeMillis()));
         toSave.setOrderTime(Time.valueOf(LocalTime.now()));
+        toSave.setTotalPrice(orderDTO.getTotalPrice());
 
         for (PizzaOrderDTO pizzaOrderDTO : orderDTO.getPizzaOrderList()) {
             PizzaOrder pizzaOrder = new PizzaOrder();
