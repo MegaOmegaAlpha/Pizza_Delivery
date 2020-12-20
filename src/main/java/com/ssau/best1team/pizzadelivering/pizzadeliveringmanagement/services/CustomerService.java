@@ -4,6 +4,7 @@ import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.dto.Customer
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.exceptions.EntityNotFoundException;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.model.Customer;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.model.Role;
+import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.model.User;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.repository.CustomerRepository;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.repository.RoleRepository;
 import org.modelmapper.ModelMapper;
@@ -33,7 +34,7 @@ public class CustomerService {
     }
 
     public CustomerDTO findById(long customerId) throws EntityNotFoundException {
-        return convertToDTO((Customer) customerRepository.findById(customerId).orElseThrow(EntityNotFoundException::new));
+        return convertToDTO(customerRepository.findById(customerId).orElseThrow(EntityNotFoundException::new));
     }
 
     public CustomerDTO update(CustomerDTO customerDTO) throws EntityNotFoundException {
@@ -62,7 +63,7 @@ public class CustomerService {
         return convertToDTO(customerRepository.save(customer));
     }
 
-    private CustomerDTO convertToDTO(Customer customer) {
+    private CustomerDTO convertToDTO(User customer) {
         return modelMapper.map(customer, CustomerDTO.class);
     }
 
