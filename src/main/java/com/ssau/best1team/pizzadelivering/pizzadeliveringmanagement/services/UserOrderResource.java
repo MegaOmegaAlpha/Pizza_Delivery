@@ -94,13 +94,6 @@ public class UserOrderResource {
             toSave.getPizzaOrderList().add(pizzaOrder);
         }
 
-        toSave.setTotalPrice(
-                toSave.getPizzaOrderList()
-                        .stream()
-                        .mapToInt(element -> element.getAmount() * element.getPizza().getPrice())
-                        .sum()
-        );
-
         toSave = orderRepository.save(toSave);
 
         return convertToDTO(toSave);
