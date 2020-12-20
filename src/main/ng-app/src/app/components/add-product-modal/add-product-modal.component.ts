@@ -30,7 +30,10 @@ export class AddProductModalComponent implements OnInit {
 
     addItem(): void {
         const pizza = this.form.value;
-        this.adminService.savePizza(pizza, this.selectedFile, this.selectedFile.name).subscribe(() => this.toasterService.success('Товар успешно сохранен', 'Успех'));
+        this.adminService.savePizza(pizza, this.selectedFile, this.selectedFile.name).subscribe(() => {
+            this.toasterService.success('Товар успешно сохранен', 'Успех');
+            this.closeDialog('');
+        });
     }
 
     private initForm(): void {

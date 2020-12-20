@@ -48,7 +48,7 @@ export class AdminOrdersComponent implements OnInit {
         {
             key: 'orderStatus',
             header: 'Статус',
-            cell: row => `${row.orderStatus.name}`,
+            cell: row => `${row.orderStatus ? row.orderStatus.name : ''}`,
             sort: false
         },
         {
@@ -78,7 +78,7 @@ export class AdminOrdersComponent implements OnInit {
     }
 
     loadOrders(): void {
-        this.ordersService.getAllOrders(this.customerId).subscribe((result) => {
+        this.ordersService.getAllOrders().subscribe((result) => {
             this.data = result;
         });
     }

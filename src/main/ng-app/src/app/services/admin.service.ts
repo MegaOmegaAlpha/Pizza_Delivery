@@ -12,11 +12,11 @@ export class AdminService {
     constructor(private httpClient: HttpClient) {
     }
 
-    getOrders(adminId: number) {
+    getOrders(adminId: number): Observable<any> {
         return this.httpClient.get(`${this.apiUrl}/${adminId}/orders`);
     }
 
-    getAllOrders(adminId: number) {
+    getAllOrders(): Observable<any> {
         return this.httpClient.get(`${this.apiUrl}/orders`);
     }
 

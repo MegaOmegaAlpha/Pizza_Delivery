@@ -13,6 +13,7 @@ import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {EditOrderModalComponent} from "../edit-order-modal/edit-order-modal.component";
 import {AdminService} from "../../services/admin.service";
 import {TokenStorageService} from "../../core/auth/token-storage.service";
+import {RoleService} from "../../services/role.service";
 
 @Component({
     selector: 'app-grid',
@@ -45,6 +46,7 @@ export class GridComponent<T> implements OnInit {
         private dialog: MatDialog,
         private ordersService: AdminService,
         private token: TokenStorageService,
+        public roleService: RoleService
     ) {}
 
     ngOnInit(): void {
@@ -53,21 +55,10 @@ export class GridComponent<T> implements OnInit {
             this.displayedColumns.push('actionsColumn');
         }
 
-        this.roles = this.getRoles()
-        if (this.actionColumn && this.isAdmin()) {
+        if (this.actionColumn) {
             this.loadStatuses();
         }
     }
-
-    getRoles() {
-        const user = this.token.getUser();
-        return user.roleList;
-    }
-
-    isAdmin(): boolean {
-        return !!this.roles.find(x => x === 'ADMIN');
-    }
-
 
     createNew(): void {
         this.addEmit.emit();
@@ -81,7 +72,9 @@ export class GridComponent<T> implements OnInit {
 
     edit(row: any): void {
         this.editEmit.next(row.id);
-        const dialogConfig = getDefaultDialogConfig({ row, statuses: this.statuses}, '500px', '300px');
+        let statuses = this.statuses
+
+        const dialogConfig = getDefaultDialogConfig({ row, statuses: statuses}, '500px', '300px');
         const dialogRef: MatDialogRef<EditOrderModalComponent> = this.dialog.open(EditOrderModalComponent, dialogConfig);
     }
 

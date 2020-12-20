@@ -34,63 +34,65 @@
             <div class="col pl-4">
                 <mat-form-field class="w-50">
                     <mat-label>Дата рождения</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="birthDate">
+                    <input  matInput [matDatepicker]="picker" formControlName="birthDate">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
             </div>
         </div>
 
-        <h3>Адрес</h3>
-        <div class="row no-gutters w-100 mt-4" formArrayName="addresses">
-            <ng-container *ngFor="let address of addresses.controls; let i = index">
-                <div [formGroupName]="i" class="d-flex flex-column mt-2 mb-2">
-                    <div class="row no-gutters w-100 justify-content-center">
+        <ng-container *ngIf="roleService.isUser()">
+            <h3>Адрес</h3>
+            <div class="row no-gutters w-100 mt-4" formArrayName="addresses">
+                <ng-container *ngFor="let address of addresses.controls; let i = index">
+                    <div [formGroupName]="i" class="d-flex flex-column mt-2 mb-2">
+                        <div class="row no-gutters w-100 justify-content-center">
                         <span class="cursor-pointer btn-link" (click)="deleteAddress(address, i)">
                             <fa-icon class="ml-2" [icon]="facTrash"></fa-icon>
                                 Удалить адрес
                          </span>
-                    </div>
-                    <div class="row no-gutters w-100 align-items-center">
-                        <div class="col-lg-2 align-items-center font-size-13px mb-3 mr-2 text-left">
-                            Улица
                         </div>
-                        <mat-form-field class="w-50 pl-3">
-                            <input matInput formControlName="street" [disabled]="address.value.disabled"/>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="row no-gutters w-100 align-items-center mt-3">
-                        <div class="col-lg-2 align-items-center font-size-13px mb-3 text-right mr-2 text-left">
-                            Дом
-                        </div>
-                        <div class="col pl-3">
-                            <mat-form-field class="w-50">
-                                <input matInput formControlName="house"/>
+                        <div class="row no-gutters w-100 align-items-center">
+                            <div class="col-lg-2 align-items-center font-size-13px mb-3 mr-2 text-left">
+                                Улица
+                            </div>
+                            <mat-form-field class="w-50 pl-3">
+                                <input matInput formControlName="street" [disabled]="address.value.disabled"/>
                             </mat-form-field>
                         </div>
-                    </div>
 
-                    <div class="row no-gutters w-100 align-items-center mt-3">
-                        <div class="col-lg-2 align-items-center font-size-13px mb-3 text-right mr-2">
-                            Квартира
+                        <div class="row no-gutters w-100 align-items-center mt-3">
+                            <div class="col-lg-2 align-items-center font-size-13px mb-3 text-right mr-2 text-left">
+                                Дом
+                            </div>
+                            <div class="col pl-3">
+                                <mat-form-field class="w-50">
+                                    <input matInput formControlName="house"/>
+                                </mat-form-field>
+                            </div>
                         </div>
-                        <div class="col pl-3">
-                            <mat-form-field class="w-50">
-                                <input matInput formControlName="flatNumber"/>
-                            </mat-form-field>
+
+                        <div class="row no-gutters w-100 align-items-center mt-3">
+                            <div class="col-lg-2 align-items-center font-size-13px mb-3 text-right mr-2">
+                                Квартира
+                            </div>
+                            <div class="col pl-3">
+                                <mat-form-field class="w-50">
+                                    <input matInput formControlName="flatNumber"/>
+                                </mat-form-field>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </ng-container>
-        </div>
+                </ng-container>
+            </div>
 
-        <div class="row mt-4 no-gutters w-50 justify-content-start">
+            <div class="row mt-4 no-gutters w-50 justify-content-start">
             <span class="cursor-pointer btn-link" (click)="addNewAddress()">
                 <fa-icon class="ml-2" [icon]="facPlus"></fa-icon>
                 Добавить адрес
             </span>
-        </div>
+            </div>
+        </ng-container>
 
         <div class="row mt-4 no-gutters w-100 justify-content-end">
             <button [disabled]="form.invalid || !form.dirty" class="yellow-button" mat-button (click)="saveScreen()">

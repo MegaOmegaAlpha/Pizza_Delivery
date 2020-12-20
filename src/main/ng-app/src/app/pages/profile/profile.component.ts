@@ -8,6 +8,7 @@ import {ToastrService} from 'ngx-toastr';
 import {TokenStorageService} from '../../core/auth/token-storage.service';
 import {CustomerDTO, CustomerService} from '../../services/customer.service';
 import {CustomerAddressService} from '../../services/customer.address.service';
+import {RoleService} from "../../services/role.service";
 
 
 @Component({
@@ -37,6 +38,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         private customerService: CustomerService,
         private customerAddressesService: CustomerAddressService,
         private toasterService: ToastrService,
+        public roleService: RoleService,
     ) { }
 
     ngOnInit(): void {
@@ -136,15 +138,26 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
 
     private initForm(): void {
-        this.form = this.fb.group({
-            fullName: [''],
-            telephone: [''],
-            email: [''],
-            birthDate: [new Date()],
-            login: [''],
-            currentNumberOfOrders: [null],
-            addresses: this.fb.array([])
-        });
+        if (this.roleService.isAdmin()) {
+            this.form = this.fb.group({
+                fullName: [{ value: '', disabled: true}],
+                telephone: [{ value: '', disabled: true}],
+                email: [{ value: '', disabled: true}],
+                birthDate: [{ value: '', disabled: true}],
+                login: [{ value: '', disabled: true}],
+                currentNumberOfOrders: [null]
+            });
+        } else {
+            this.form = this.fb.group({
+                fullName: [''],
+                telephone: [''],
+                email: [''],
+                birthDate: [new Date()],
+                login: [''],
+                currentNumberOfOrders: [null],
+                addresses: this.fb.array([])
+            });
+        }
     }
 
     ngOnDestroy(): void {

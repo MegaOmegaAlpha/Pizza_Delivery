@@ -6,6 +6,7 @@ import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {AddItemModalComponent} from '../../components/add-item-modal/add-item-modal.component';
 import {getDefaultDialogConfig} from '../../constants';
 import {TokenStorageService} from '../../core/auth/token-storage.service';
+import {RoleService} from "../../services/role.service";
 
 @Component({
     selector: 'app-catalog-menu',
@@ -14,6 +15,7 @@ import {TokenStorageService} from '../../core/auth/token-storage.service';
 })
 export class CatalogMenuComponent implements OnInit {
     pizzaItems: PizzaCatalogItem[] = [];
+    roles: string[] = [];
     isLoaded = false;
 
     pizzaImageMap: { [key: string]: any } = {
@@ -28,6 +30,7 @@ export class CatalogMenuComponent implements OnInit {
         private toasterService: ToastrService,
         public dialogService: MatDialog,
         private token: TokenStorageService,
+        public roleService: RoleService,
     ) {}
 
     ngOnInit(): void {

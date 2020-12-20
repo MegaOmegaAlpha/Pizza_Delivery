@@ -6,6 +6,7 @@ import {BucketService} from '../services/bucket.service';
 import {BucketComponent} from '../pages/bucket/bucket.component';
 import {AddProductModalComponent} from '../components/add-product-modal/add-product-modal.component';
 import {ToastrService} from 'ngx-toastr';
+import {RoleService} from "../services/role.service";
 
 @Component({
   selector: 'app-header',
@@ -22,28 +23,16 @@ export class HeaderComponent implements OnInit {
         private bucketService: BucketService,
         public dialog: MatDialog,
         private toasterService: ToastrService,
+        public roleService: RoleService,
     ) { }
 
     ngOnInit(): void {
         this.isLoggedIn = !!this.tokenStorageService.getToken();
         if (this.isLoggedIn) {
             const user = this.tokenStorageService.getUser();
-            this.roles = user.roleList;
 
             this.username = user.username;
         }
-    }
-
-    isCourier(): boolean {
-        return !!this.roles.find(x => x === 'courier'.toLocaleUpperCase());
-    }
-
-    isAdmin(): boolean  {
-        return !!this.roles.find(x => x === 'admin'.toLocaleUpperCase());
-    }
-
-    isUser(): boolean  {
-        return !!this.roles.find(x => x === 'CUSTOMER'.toLocaleUpperCase());
     }
 
     openBucket(): void {
