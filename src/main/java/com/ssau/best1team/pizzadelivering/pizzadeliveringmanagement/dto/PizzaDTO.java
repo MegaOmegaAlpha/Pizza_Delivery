@@ -1,5 +1,6 @@
 package com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.web.multipart.MultipartFile;
 
 public class PizzaDTO {
@@ -11,7 +12,8 @@ public class PizzaDTO {
     private long id;
     private String name;
     private String composition;
-    private MultipartFile multipartFile;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private MultipartFile image;
     private int price;
     private String encodedImage;
 
@@ -31,12 +33,12 @@ public class PizzaDTO {
         this.name = name;
     }
 
-    public MultipartFile getMultipartFile() {
-        return multipartFile;
+    public MultipartFile getImage() {
+        return image;
     }
 
-    public void setMultipartFile(MultipartFile multipartFile) {
-        this.multipartFile = multipartFile;
+    public void setImage(MultipartFile image) {
+        this.image = image;
     }
 
     public int getPrice() {

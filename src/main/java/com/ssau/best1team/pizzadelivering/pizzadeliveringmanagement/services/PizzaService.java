@@ -40,13 +40,13 @@ public class PizzaService {
         return convertToDTO(pizzaRepository.findById(id).get());
     }
 
-    public PizzaDTO save(PizzaDTO pizzaDTO, MultipartFile pizzaPhotoFile) throws IOException {
+    public PizzaDTO save(PizzaDTO pizzaDTO) throws IOException {
         Pizza pizza = new Pizza();
         pizza.setComposition(pizzaDTO.getComposition());
         pizza.setPrice(pizzaDTO.getPrice());
         pizza.setName(pizzaDTO.getName());
 
-        String savedImageName = saveFile(pizzaPhotoFile);
+        String savedImageName = saveFile(pizzaDTO.getImage());
 
         pizza.setPhoto(savedImageName);
 
