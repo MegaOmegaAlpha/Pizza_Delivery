@@ -14,6 +14,7 @@ import {EditOrderModalComponent} from "../edit-order-modal/edit-order-modal.comp
 import {AdminService} from "../../services/admin.service";
 import {TokenStorageService} from "../../core/auth/token-storage.service";
 import {RoleService} from "../../services/role.service";
+import {OrderStatusService} from "../../services/order-status.service";
 
 @Component({
     selector: 'app-grid',
@@ -45,7 +46,7 @@ export class GridComponent<T> implements OnInit {
 
     constructor(
         private dialog: MatDialog,
-        private ordersService: AdminService,
+        private ordersService: OrderStatusService,
         private token: TokenStorageService,
         public roleService: RoleService
     ) {}
@@ -74,7 +75,9 @@ export class GridComponent<T> implements OnInit {
     edit(row: any): void {
         this.editEmit.next(row.id);
         let statuses = this.statuses
-
+        if (this.roleService.isCourier()) {
+            statuses = statuses.filter(x => x.name === 'Передан курьеру' || x.name === 'Доставлено')
+        }
         const dialogConfig = getDefaultDialogConfig({ row, statuses: statuses}, '500px', '300px');
         const dialogRef: MatDialogRef<EditOrderModalComponent> = this.dialog.open(EditOrderModalComponent, dialogConfig);
         dialogRef.afterClosed().subscribe(() => {

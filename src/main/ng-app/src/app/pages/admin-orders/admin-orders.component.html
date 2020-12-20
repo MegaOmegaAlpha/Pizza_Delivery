@@ -1,6 +1,6 @@
 <div class="container" *ngIf="customerId; else loggedOut">
     <h2 mat-dialog-title>Текущее количество заказов {{ data && data.length > 0 ? data.length : 0}}</h2>
-    <app-grid actionColumn="true" [data]="data" [gridColumns]="gridColumns">
+    <app-grid actionColumn="true" [data]="data" [gridColumns]="gridColumns" (reload)="loadOrders()">
     </app-grid>
 </div>
 
