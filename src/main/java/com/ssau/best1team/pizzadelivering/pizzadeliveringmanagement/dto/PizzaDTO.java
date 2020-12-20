@@ -13,7 +13,7 @@ public class PizzaDTO {
     private String composition;
     private MultipartFile multipartFile;
     private int price;
-    private byte[] bytes;
+    private String encodedImage;
 
     public long getId() {
         return id;
@@ -47,12 +47,12 @@ public class PizzaDTO {
         this.price = price;
     }
 
-    public byte[] getBytes() {
-        return bytes;
+    public String getEncodedImage() {
+        return encodedImage;
     }
 
-    public void setBytes(byte[] bytes) {
-        this.bytes = bytes;
+    public void setEncodedImage(String encodedImage) {
+        this.encodedImage = encodedImage;
     }
 
     public String getComposition() {

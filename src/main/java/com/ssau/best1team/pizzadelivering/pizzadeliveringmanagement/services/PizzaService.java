@@ -5,7 +5,7 @@ import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.exceptions.E
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.model.Pizza;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.repository.PizzaRepository;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.utils.FileUploadUtil;
-import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.FileUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +13,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,8 +22,6 @@ public class PizzaService {
 
     private PizzaRepository pizzaRepository;
     private ModelMapper modelMapper;
-
-    private static final String IMAGE_DIRECTORY = "images/";
 
     @Autowired
     public PizzaService(PizzaRepository pizzaRepository, ModelMapper modelMapper) {
@@ -42,12 +41,15 @@ public class PizzaService {
     }
 
     public PizzaDTO save(PizzaDTO pizzaDTO, MultipartFile pizzaPhotoFile) throws IOException {
-        Pizza pizza = convertToEntity(pizzaDTO);
+        Pizza pizza = new Pizza();
+        pizza.setComposition(pizzaDTO.getComposition());
+        pizza.setPrice(pizzaDTO.getPrice());
+        pizza.setName(pizzaDTO.getName());
 
-        String imageFileName = StringUtils.cleanPath(pizzaPhotoFile.getOriginalFilename());
-        FileUploadUtil.saveFile(IMAGE_DIRECTORY, imageFileName, pizzaPhotoFile);
+        String savedImageName = saveFile(pizzaPhotoFile);
 
-        pizza.setPhoto(imageFileName);
+        pizza.setPhoto(savedImageName);
+
         pizza = pizzaRepository.save(pizza);
         return convertToDTO(pizza);
     }
@@ -61,24 +63,25 @@ public class PizzaService {
         return convertToDTO(pizzaRepository.save(pizza));
     }
 
-    private Pizza convertToEntity(PizzaDTO pizzaDTO) {
-        Pizza result = modelMapper.map(pizzaDTO, Pizza.class);
-        return result;
-    }
-
     private PizzaDTO convertToDTO(Pizza pizza) {
         PizzaDTO result = modelMapper.map(pizza, PizzaDTO.class);
+        if (!pizza.getPhoto().isEmpty()) {
+            try {
+                File pizzaImageFile = new File(Pizza.IMAGE_DIRECTORY + pizza.getPhoto());
+                byte[] fileContent = FileUtils.readFileToByteArray(pizzaImageFile);
+                String encodedContent = Base64.getEncoder().encodeToString(fileContent);
+                result.setEncodedImage(encodedContent);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         return result;
     }
 
-    private byte[] getBytesFromImage(String fileName) throws IOException {
-        try (InputStream inputStream = new FileInputStream(new File(IMAGE_DIRECTORY + fileName))) {
-            return IOUtils.toByteArray(inputStream);
-        }
+    private String saveFile(MultipartFile multipartFile) throws IOException {
+        String imageFileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        FileUploadUtil.saveFile(Pizza.IMAGE_DIRECTORY, imageFileName, multipartFile);
+        return imageFileName;
     }
 
-    private void saveImage(MultipartFile multipartFile) throws IOException {
-        FileUploadUtil.saveFile(IMAGE_DIRECTORY, StringUtils.cleanPath(multipartFile.getOriginalFilename() == null ? ""
-                : multipartFile.getOriginalFilename()), multipartFile);
-    }
 }

@@ -7,6 +7,8 @@ import java.util.List;
 @Table(name = "pizza")
 public class Pizza {
 
+    public static final String IMAGE_DIRECTORY = "images/";
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;

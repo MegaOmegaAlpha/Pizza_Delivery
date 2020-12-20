@@ -33,7 +33,7 @@ public class PizzaController {
     }
 
     @PostMapping(value = "/admin/pizzas")
-    public PizzaDTO save(@RequestBody PizzaDTO pizzaDTO, @RequestParam("image") MultipartFile pizzaPhoto) throws IOException {
+    public PizzaDTO save(PizzaDTO pizzaDTO, @RequestParam("image") MultipartFile pizzaPhoto) throws IOException {
         return pizzaService.save(pizzaDTO, pizzaPhoto);
     }
 
