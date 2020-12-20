@@ -65,5 +65,4 @@ public class CourierOrderResource {
     private OrderDTO convertToDTO(Order order) {
         return modelMapper.map(order, OrderDTO.class);
     }
-
 }

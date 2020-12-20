@@ -32,5 +32,4 @@ public class CustomerController {
     public CustomerDTO register(@RequestBody CustomerDTO customerDTO) throws EntityNotFoundException {
         return customerService.createCustomer(customerDTO);
     }
-
 }

@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Изменение статуса заказа</h2>
+<mat-dialog-content [formGroup]="form">
+    <mat-form-field appearance="fill">
+        <mat-label>Статус</mat-label>
+        <mat-select formControlName="status">
+            <mat-option *ngFor="let status of data.statuses" [value]="status.id">
+                {{ status.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions class="mt-4" align="end">
+    <button class="btn btn-outline-primary mr-4" mat-dialog-close>Отмена</button>
+    <button [disabled]="!form.dirty" (click)="apply()" class="btn btn-primary"
+            cdkFocusInitial>
+        Изменить
+    </button>
+</mat-dialog-actions>
