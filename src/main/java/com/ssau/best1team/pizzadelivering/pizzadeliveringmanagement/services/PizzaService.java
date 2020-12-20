@@ -44,8 +44,13 @@ public class PizzaService {
         return convertToDTO(pizzaRepository.findById(id).get());
     }
 
-    public PizzaDTO save(PizzaDTO pizzaDTO) {
+    public PizzaDTO save(PizzaDTO pizzaDTO, MultipartFile pizzaPhotoFile) throws IOException {
         Pizza pizza = convertToEntity(pizzaDTO);
+
+        String imageFileName = StringUtils.cleanPath(pizzaPhotoFile.getOriginalFilename());
+        FileUploadUtil.saveFile(IMAGE_DIRECTORY, imageFileName, pizzaPhotoFile);
+
+        pizza.setPhoto(imageFileName);
         pizza = pizzaRepository.save(pizza);
         return convertToDTO(pizza);
     }

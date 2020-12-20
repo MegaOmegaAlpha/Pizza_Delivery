@@ -1,9 +1,11 @@
 package com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.controllers;
 
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.dto.PizzaDTO;
+import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.exceptions.EntityNotFoundException;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.services.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -30,13 +32,13 @@ public class PizzaController {
     }
 
     @PostMapping(value = "admin/pizzas")
-    public PizzaDTO save(@RequestBody PizzaDTO pizzaDTO) {
-        return pizzaService.save(pizzaDTO);
+    public PizzaDTO save(@RequestBody PizzaDTO pizzaDTO, @RequestParam("image") MultipartFile pizzaPhoto) {
+        return pizzaService.save(pizzaDTO, pizzaPhoto);
     }
 
     @PutMapping(value = "admin/pizzas")
-    public PizzaDTO update(@RequestBody PizzaDTO pizzaDTO) {
-        return pizzaService.save(pizzaDTO);
+    public PizzaDTO update(@RequestBody PizzaDTO pizzaDTO) throws EntityNotFoundException {
+        return pizzaService.update(pizzaDTO);
     }
 
 }
