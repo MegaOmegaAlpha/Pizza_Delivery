@@ -1,4 +1,4 @@
-<div class="container" *ngIf="courierId; else loggedOut">
+<div class="container" *ngIf="customerId; else loggedOut">
     <h2 mat-dialog-title>Текущее количество заказов {{ data && data.length > 0 ? data.length : 0}}</h2>
     <app-grid actionColumn="true" [data]="data" [gridColumns]="gridColumns">
     </app-grid>
@@ -9,3 +9,4 @@
         <span>Please login</span>
     </div>
 </ng-template>
+

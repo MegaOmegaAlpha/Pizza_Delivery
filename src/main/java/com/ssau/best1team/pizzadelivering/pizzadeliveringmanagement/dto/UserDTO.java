@@ -7,6 +7,7 @@ public class UserDTO {
     private long id;
     private String login;
     private String fullName;
+
     private List<String> roleList;
 
     public long getId() {

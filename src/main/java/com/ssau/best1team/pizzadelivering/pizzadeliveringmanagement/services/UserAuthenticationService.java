@@ -63,5 +63,4 @@ public class UserAuthenticationService {
     private String acquireName(Role role) {
         return role.getName();
     }
-
 }

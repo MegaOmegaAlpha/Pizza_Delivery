@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {TokenStorageService} from '../core/auth/token-storage.service';
-import {UserService} from '../services/user.service';
 import {getDefaultDialogConfig} from '../constants';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {BucketService} from '../services/bucket.service';
@@ -20,7 +19,6 @@ export class HeaderComponent implements OnInit {
 
     constructor(
         private tokenStorageService: TokenStorageService,
-        public userService: UserService,
         private bucketService: BucketService,
         public dialog: MatDialog,
         private toasterService: ToastrService,
@@ -59,7 +57,7 @@ export class HeaderComponent implements OnInit {
     }
 
     openAddProduct(): void {
-        const dialogConfig = getDefaultDialogConfig(this.bucketService.getBucket(), '500px', '450px');
+        const dialogConfig = getDefaultDialogConfig(this.bucketService.getBucket(), '600px', '550px');
         const dialogRef: MatDialogRef<AddProductModalComponent> = this.dialog.open(AddProductModalComponent, dialogConfig);
     }
 

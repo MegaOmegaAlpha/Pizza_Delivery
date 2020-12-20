@@ -1,22 +1,26 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup} from "@angular/forms";
+import {ToastrService} from "ngx-toastr";
+import {MatDialog} from "@angular/material/dialog";
+
 import {GridColumn} from "../../components/grid/grid.component";
 import {OrderDTO} from "../../services/customer-order.service";
-import {CourierOrderService} from "../../services/courier-order.service";
 import {TokenStorageService} from "../../core/auth/token-storage.service";
+import {AdminService} from "../../services/admin.service";
 
 @Component({
-    selector: 'app-courier-orders',
-    templateUrl: './courier-orders.component.html',
-    styleUrls: ['./courier-orders.component.scss']
+    selector: 'app-admin-orders',
+    templateUrl: './admin-orders.component.html',
+    styleUrls: ['./admin-orders.component.scss']
 })
-export class CourierOrdersComponent implements OnInit {
+export class AdminOrdersComponent implements OnInit {
+    statuses: any[];
     form: FormGroup;
     data: any[];
 
-    courierId: number;
+    customerId: number;
 
-    gridColumns: GridColumn<any>[] = [
+    gridColumns: GridColumn<OrderDTO>[] = [
         {
             key: 'id',
             header: 'Номер заказа',
@@ -62,18 +66,19 @@ export class CourierOrdersComponent implements OnInit {
     ];
 
     constructor(
-        private ordersService: CourierOrderService,
+        private ordersService: AdminService,
         private token: TokenStorageService,
-    ) {
-    }
+        private toasterService: ToastrService,
+        private dialog: MatDialog
+    ) {}
 
     ngOnInit(): void {
-        this.courierId = this.token.getUser().id;
+        this.customerId = this.token.getUser().id;
         this.loadOrders();
     }
 
     loadOrders(): void {
-        this.ordersService.getOrders(this.courierId).subscribe((result) => {
+        this.ordersService.getAllOrders(this.customerId).subscribe((result) => {
             this.data = result;
         });
     }

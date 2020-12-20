@@ -14,7 +14,6 @@ export class AddProductModalComponent implements OnInit {
 
     selectedFile: File = null;
 
-
     constructor(
         public dialogRef: MatDialogRef<AddProductModalComponent>,
         private adminService: AdminService,
@@ -26,12 +25,12 @@ export class AddProductModalComponent implements OnInit {
     }
 
     onFileSelected(event: any): void {
-        this.selectedFile = event.target.files[0];
+        this.selectedFile = event;
     }
 
     addItem(): void {
         const pizza = this.form.value;
-        this.adminService.savePizza(pizza, this.selectedFile).subscribe(() => this.toasterService.success('Товар успешно сохранен', 'Успех'));
+        this.adminService.savePizza(pizza, this.selectedFile, this.selectedFile.name).subscribe(() => this.toasterService.success('Товар успешно сохранен', 'Успех'));
     }
 
     private initForm(): void {
