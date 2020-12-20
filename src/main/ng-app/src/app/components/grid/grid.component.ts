@@ -28,6 +28,7 @@ export class GridComponent<T> implements OnInit {
     @Input() gridColumns: GridColumn<T>[];
     @Input() actionColumn = false;
 
+    @Output() reload =  new EventEmitter();
     @Output() addEmit =  new EventEmitter();
     @Output() editEmit =  new EventEmitter<number>();
     @Output() removeEmit = new EventEmitter();
@@ -76,6 +77,9 @@ export class GridComponent<T> implements OnInit {
 
         const dialogConfig = getDefaultDialogConfig({ row, statuses: statuses}, '500px', '300px');
         const dialogRef: MatDialogRef<EditOrderModalComponent> = this.dialog.open(EditOrderModalComponent, dialogConfig);
+        dialogRef.afterClosed().subscribe(() => {
+            this.reload.emit();
+        });
     }
 
     delete(row: any): void {

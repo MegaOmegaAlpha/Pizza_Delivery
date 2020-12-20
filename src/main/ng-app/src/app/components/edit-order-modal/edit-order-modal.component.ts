@@ -29,7 +29,7 @@ export class EditOrderModalComponent implements OnInit {
     apply() {
         this.adminService.updateOrderStatus(this.data.row.id, this.form.get('status').value).subscribe(() => {
             this.toasterService.success('Статус успешно обновлен', 'Успех')
-            this.closeDialog('Status changed');
+            this.closeDialog('');
         })
     }
 

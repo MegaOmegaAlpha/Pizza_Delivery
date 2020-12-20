@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {UserService} from '../../services/user.service';
+import {ToastrService} from 'ngx-toastr';
+
 import {CustomerOrderService, OrderDTO} from '../../services/customer-order.service';
 import {TokenStorageService} from '../../core/auth/token-storage.service';
-import {ToastrService} from 'ngx-toastr';
 import {GridColumn} from '../../components/grid/grid.component';
 
 @Component({
