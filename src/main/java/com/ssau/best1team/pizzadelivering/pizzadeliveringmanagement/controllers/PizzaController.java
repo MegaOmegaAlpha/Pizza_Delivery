@@ -5,7 +5,6 @@ import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.exceptions.E
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.services.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -33,8 +32,8 @@ public class PizzaController {
     }
 
     @PostMapping(value = "/admin/pizzas")
-    public PizzaDTO save(PizzaDTO pizzaDTO, @RequestParam("image") MultipartFile pizzaPhoto) throws IOException {
-        return pizzaService.save(pizzaDTO, pizzaPhoto);
+    public PizzaDTO save(@ModelAttribute("pizza") PizzaDTO pizzaDTO) throws IOException {
+        return pizzaService.save(pizzaDTO);
     }
 
     @PutMapping(value = "/admin/pizzas")
