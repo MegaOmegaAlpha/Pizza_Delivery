@@ -1,0 +1,11 @@
+<div class="container" *ngIf="customerId; else loggedOut">
+    <h2 mat-dialog-title>Текущее количество заказов {{ data && data.length > 0 ? data.length : 0}}</h2>
+    <app-grid [data]="data" [gridColumns]="gridColumns">
+    </app-grid>
+</div>
+
+<ng-template #loggedOut>
+    <div class="row mt-4 justify-content-center">
+        <span>Please login</span>
+    </div>
+</ng-template>

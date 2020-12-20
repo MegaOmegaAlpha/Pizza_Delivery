@@ -1,0 +1,149 @@
+<h3>
+    Заказ на доставку
+</h3>
+
+<div class="order-content-body d-flex flex-row w-100">
+    <div class="d-flex w-40 flex-column mt-4">
+        <form [formGroup]="form">
+            <h5 class="pl-4">Личные данные</h5>
+
+            <div class="row no-gutters w-75 align-items-center mt-3">
+                <div class="col pl-4">
+                    <mat-form-field class="w-50">
+                        <mat-label>Ф.И.О</mat-label>
+                        <input matInput formControlName="fullName"/>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row no-gutters w-50 align-items-center mt-3">
+                <div class="col pl-4">
+                    <mat-form-field class="w-50">
+                        <mat-label>Номер телефона</mat-label>
+                        <input matInput formControlName="telephone"/>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row no-gutters w-50 align-items-center mt-3">
+                <div class="col pl-4">
+                    <mat-form-field class="w-50">
+                        <mat-label>E-mail</mat-label>
+                        <input matInput formControlName="email"/>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row no-gutters w-50 align-items-center mt-3">
+                <div class="col pl-4">
+                    <mat-form-field class="w-50">
+                        <mat-label>Дата рождения</mat-label>
+                        <input matInput formControlName="birthDate"/>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <h5 class="pl-4 mt-4">Адрес доставки</h5>
+
+            <mat-form-field class="mt-2 pl-4" appearance="fill">
+                <mat-label>Адрес</mat-label>
+                <mat-select formControlName="address">
+                    <mat-option *ngFor="let address of addresses" [value]="address.id">
+                        {{ address.street + ', ' + address.house + ', кв.' + address.flatNumber}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <h5 class="pl-4 mt-4">Способы оплаты</h5>
+            <mat-checkbox (change)="changeCheckbox($event, 'nal')" class="pl-4 mt-2" [formControlName]="'nal'">Наличными</mat-checkbox>
+            <mat-checkbox (change)="changeCheckbox($event, 'cardCourier')" class="pl-4 mt-2" [formControlName]="'cardCourier'">Курьеру картой</mat-checkbox>
+            <mat-checkbox (change)="changeCheckbox($event, 'cardOnline')" class="pl-4 mt-2" [formControlName]="'cardOnline'">Картой онлайн</mat-checkbox>
+
+            <ng-container *ngIf="form.get('cardOnline').value === true">
+               <div class="row">
+                   <mat-form-field class="mt-2 pl-4" appearance="fill">
+                       <mat-label>Номер карты</mat-label>
+                       <input matInput formControlName="cardNumber" maxlength="16" minlength="16">
+                   </mat-form-field>
+                   <mat-form-field class="mt-2 pl-4" appearance="fill">
+                       <mat-label>Срок действия</mat-label>
+                       <input matInput [matDatepicker]="picker" formControlName="dateExpire">
+                       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                       <mat-datepicker #picker></mat-datepicker>
+                   </mat-form-field>
+               </div>
+                <div class="row">
+                    <mat-form-field class="mt-2 pl-4" appearance="fill">
+                        <mat-label>СVC</mat-label>
+                        <input matInput formControlName="cvc" [minLength]="3" [maxLength]="3">
+                    </mat-form-field>
+                </div>
+            </ng-container>
+
+            <h5 class="pl-4 mt-4">Комментарий к заказу</h5>
+            <mat-form-field class="mt-2 pl-4" appearance="fill">
+                <mat-label>Комментарий</mat-label>
+                <textarea style="resize: none" matInput formControlName="comment"></textarea>
+            </mat-form-field>
+        </form>
+    </div>
+
+    <div class="d-flex w-60 flex-column ml-auto">
+        <h5 class="pl-4 mt-4">Заказ на доставку</h5>
+
+        <ng-container *ngFor="let item of orders">
+            <div class="row no-gutters pl-0 align-items-center p-2">
+                <div class="col-4 ml-2">
+                    <img class="pizza-image" src="{{ item.pizza.imgUrl }}" width="120px" height="120px"
+                         alt="pizza preview"/>
+                </div>
+                <div class="col-7 color-yellow ml-2">
+                    <div class="row no-gutters w-100 align-items-center justify-content-between mt-1 align-items-center font-size-16px">
+                        {{ item.pizza.fullName }}
+                        <div class="col">
+                            <div class="price-title font-size-14px ml-2 text-center">
+                                {{ item.price | number:'2.1-2' }} ₽
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row no-gutters w-100 align-items-center mt-1">
+                        <div class="price-title font-size-14px">
+                            Тесто:
+                        </div>
+                        <div class="color-black font-size-14px ml-2">
+                            {{ titleMap[item.crust] }}
+                        </div>
+                    </div>
+                    <div class="row no-gutters w-100 align-items-center mt-1">
+                        <div class="price-title font-size-14px">
+                            Размер:
+                        </div>
+                        <div class="color-black font-size-14px ml-2">
+                            {{ titleMap[item.size] }}
+                        </div>
+                    </div>
+                    <div class="row no-gutters w-100 align-items-center mt-1 font-size-16px">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Количество</mat-label>
+                            <input type="number" matInput [(ngModel)]="item.count">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <div class="row no-gutters w-100 align-items-center mt-2 justify-content-between">
+            <div class="price-title font-size-14px col-3 text-right font-weight-bolder">
+                Сумма заказа:
+            </div>
+            <div class="color-black font-size-14px ml-2 col-2 font-weight-bolder mr-5">
+                {{ getOrderPrice() }} ₽
+            </div>
+        </div>
+    </div>
+    <div class="row no-gutters w-100 mt-auto">
+        <button class="btn btn-primary ml-auto" (click)="packOrder()">
+            Оформить заказ
+        </button>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+<mat-dialog-content>
+    <div class="row no-gutters w-100">
+        <div class="col-lg-2 font-size-16px font-weight-bolder">
+            Корзина
+        </div>
+        <div *ngIf="data" class="col-lg-4 ml-auto font-size-16px text-right mr-5">
+            {{ data.length }} элемент/а
+        </div>
+    </div>
+
+    <div class="d-flex flex-1 flex-column mb-4">
+        <ng-container *ngFor="let item of data">
+            <div class="row no-gutters pl-0 align-items-center p-2">
+                <div class="col-4 ml-2">
+                    <img class="pizza-image" src="{{ item.pizza.imgUrl }}" width="120px" height="120px"
+                         alt="pizza preview"/>
+                </div>
+                <div class="col-7 color-yellow ml-2">
+                    <div class="row no-gutters w-100 align-items-center justify-content-between mt-1 align-items-center font-size-16px">
+                       {{ item.pizza.fullName }}
+                        <div class="col">
+                            <div class="price-title font-size-14px ml-2 text-center">
+                                {{ item.price | number:'2.1-2' }} ₽
+                            </div>
+                            <div class="font-size-11px text-center cursor-pointer" (click)="removeFromBucket(item)">
+                                Убрать
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row no-gutters w-100 align-items-center mt-1">
+                        <div class="price-title font-size-14px">
+                            Тесто:
+                        </div>
+                        <div class="color-black font-size-14px ml-2">
+                            {{ titleMap[item.crust] }}
+                        </div>
+                    </div>
+                    <div class="row no-gutters w-100 align-items-center mt-1">
+                        <div class="price-title font-size-14px">
+                            Размер:
+                        </div>
+                        <div class="color-black font-size-14px ml-2">
+                            {{ titleMap[item.size] }}
+                        </div>
+                    </div>
+                    <div class="row no-gutters w-100 align-items-center mt-1 font-size-16px">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Количество</mat-label>
+                            <input type="number" matInput [(ngModel)]="item.count">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <div class="row no-gutters w-100 align-items-center mt-2 justify-content-between">
+            <div class="price-title font-size-14px col-3 text-left font-weight-bolder">
+                Сумма заказа:
+            </div>
+            <div class="color-black font-size-14px ml-2 col-2 font-weight-bolder mr-5">
+                {{ getOrderPrice() | number:'2.1-2' }} ₽
+            </div>
+        </div>
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions class="mt-4" align="end">
+    <button class="btn btn-outline-primary mr-4" mat-dialog-close>Отмена</button>
+    <button class="btn btn-primary yellow-button" (click)="navigateToOrders()" cdkFocusInitial>
+        Перейти к оформлению заказа
+    </button>
+</mat-dialog-actions>

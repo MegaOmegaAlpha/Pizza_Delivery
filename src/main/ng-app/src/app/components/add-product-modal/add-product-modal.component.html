@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>Добавление товара</h2>
+<mat-dialog-content [formGroup]="form">
+    <div class="row no-gutters mt-2">
+        <mat-form-field class="w-100">
+            <mat-label>Наименование</mat-label>
+            <input matInput formControlName="name"/>
+        </mat-form-field>
+    </div>
+
+    <div class="row no-gutters mt-2">
+        <mat-form-field class="w-100">
+            <mat-label>Описание</mat-label>
+            <textarea style="resize: none" matInput formControlName="desc"></textarea>
+        </mat-form-field>
+    </div>
+
+    <div class="row no-gutters mt-2">
+        <mat-form-field class="w-50">
+            <mat-label>Цена</mat-label>
+            <textarea style="resize: none" matInput formControlName="price"></textarea>
+        </mat-form-field>
+    </div>
+
+    <div class="row no-gutters mt-2">
+        <mat-form-field>
+            <ngx-mat-file-input formControlName="file">
+            </ngx-mat-file-input>
+        </mat-form-field>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions class="mt-4" align="end">
+    <button class="btn btn-outline-primary mr-4" mat-dialog-close>Отмена</button>
+    <button (click)="addItem()" class="btn btn-primary"
+             cdkFocusInitial>
+        Добавить товар
+    </button>
+</mat-dialog-actions>

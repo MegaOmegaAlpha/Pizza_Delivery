@@ -1,0 +1,38 @@
+<div class="catalog-menu-content">
+    <div class="row no-gutters pl-0 align-items-center">
+        <div class="col p-3 font-weight-bold">У нас самая вкусная пицца !</div>
+    </div>
+    <div class="row no-gutters pl-0 bg-pizza">
+    </div>
+    <div class="row no-gutters pl-0 py-3">
+        <div class="col text-left">
+            <h3>Пицца</h3>
+        </div>
+    </div>
+    <div class="pizza-menu p-2 justify-content-center">
+        <div *ngFor="let pizza of pizzaItems" class="pizza-item">
+            <div class="row no-gutters w-100 pl-0 align-items-center">
+                <img class="pizza-image" [src]="pizza.imgUrl" width="200px" height="200px" alt="pizza preview"/>
+            </div>
+            <div class="row no-gutters w-100 pl-0 mt-2">
+                <div class="col font-size-15px font-weight-bolder">
+                    {{ pizza.fullName }}
+                </div>
+            </div>
+            <div class="row no-gutters w-100 mt-2 pb-2 px-2 description-row" style="min-height: 54px">
+                <div class="col font-size-12px">
+                    {{ pizza.composition }}
+                </div>
+            </div>
+            <div class="row no-gutters w-100 pl-0 mt-2">
+                <div class="col font-size-13px pl-4 pr-2 text-left">
+                    {{ pizza.displayedPrice }}
+                </div>
+                <div *ngIf="pizza.available" class="btn btn-primary col bucket-button yellow-button"
+                     (click)="this.onAddToBucketClicked(pizza)">
+                    В корзину
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+$topnav-background-color: #222;
+$topnav-hover-color: #317ce2;
+
+:host {
+    .logo {
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+
+    .form-inline {
+        display: flex;
+        flex-flow: row;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .navbar {
+        background-color: $topnav-background-color !important;
+
+        .navbar-brand {
+            color: black;
+        }
+
+        .nav-item > a {
+            color: #999;
+
+            &:hover {
+                color: #fff;
+            }
+        }
+    }
+}
+
+.appheader {
+    height: 61px;
+    padding: 0;
+    background: $topnav-background-color !important;
+    border-bottom: 1px solid #dfe2e5;
+    box-shadow: 0px -19px 15px 6px #000;
+}
+
+.appheader-logo {
+    background-color: $topnav-background-color !important;
+    width: 300px;
+    height: 60px;
+}
+
+.appheader-navbar {
+    font-size: 0.825rem;
+    line-height: 50px;
+    text-align: center;
+}
+
+.logo-text {
+    height: 20px;
+}

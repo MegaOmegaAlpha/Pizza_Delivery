@@ -1,0 +1,139 @@
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <div class="card card-container p-15px">
+            <img
+                id="profile-img"
+                src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+                class="profile-img-card"
+            />
+            <form
+                *ngIf="!isSuccessful"
+                name="form"
+                (ngSubmit)="f.form.valid && onSubmit()"
+                #f="ngForm"
+                novalidate
+            >
+                <div class="form-group">
+                    <label for="login">Логин</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="username"
+                        [(ngModel)]="form.login"
+                        required
+                        minlength="3"
+                        maxlength="20"
+                        #login="ngModel"
+                    />
+                    <div class="alert-danger" *ngIf="login.errors && f.submitted">
+                        <div *ngIf="login.errors.required">Логин обязателен</div>
+                        <div *ngIf="login.errors.minlength">
+                            Логин должен иметь минимум 3 символа
+                        </div>
+                        <div *ngIf="login.errors.maxlength">
+                            Логин не может быть длинее 20 символов
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="fullName">Полное имя</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="name"
+                        [(ngModel)]="form.fullName"
+                        required
+                        minlength="6"
+                        maxlength="30"
+                        #fullName="ngModel"
+                    />
+                    <div class="alert-danger" *ngIf="fullName.errors && f.submitted">
+                        <div *ngIf="fullName.errors.required">Полное имя обязательно</div>
+                        <div *ngIf="fullName.errors.minlength">
+                            Полное имя не может быть короче 6 символов
+                        </div>
+                        <div *ngIf="fullName.errors.maxlength">
+                            Полное имя не может быть длинее 30 символов
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input
+                        type="email"
+                        class="form-control"
+                        name="email"
+                        [(ngModel)]="form.email"
+                        required
+                        email
+                        #email="ngModel"
+                    />
+                    <div class="alert-danger" *ngIf="email.errors && f.submitted">
+                        <div *ngIf="email.errors.required">Email обязателен</div>
+                        <div *ngIf="email.errors.email">
+                            Email должен быть валидным
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+                    <input
+                        type="password"
+                        class="form-control"
+                        name="password"
+                        [(ngModel)]="form.password"
+                        required
+                        minlength="6"
+                        #password="ngModel"
+                    />
+                    <div class="alert-danger" *ngIf="password.errors && f.submitted">
+                        <div *ngIf="password.errors.required">Пароль обязателен</div>
+                        <div *ngIf="password.errors.minlength">
+                            Пароль должен быть минимум 6 символов
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="telephone">Телефон</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="telephone"
+                        [(ngModel)]="form.telephone"
+                        required
+                        minlength="6"
+                        #telephone="ngModel"
+                    />
+                    <div class="alert-danger" *ngIf="telephone.errors && f.submitted">
+                        <div *ngIf="telephone.errors.required">Телефон обязателен</div>
+                        <div *ngIf="telephone.errors.minlength">
+                            Телефон должен быть минимум 6 символов
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="birthDate">Дата рождения</label>
+                    <input
+                        type="date"
+                        class="form-control"
+                        name="birthDate"
+                        [(ngModel)]="form.birthDate"
+                        required
+                        #birthDate="ngModel"
+                    />
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block">Sign Up</button>
+                </div>
+
+                <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+                    Ошибка регистрации!<br />{{ errorMessage }}
+                </div>
+            </form>
+
+            <div class="alert alert-success" *ngIf="isSuccessful">
+                Успешная регистраиция!
+            </div>
+        </div>
+    </div>
+</div>

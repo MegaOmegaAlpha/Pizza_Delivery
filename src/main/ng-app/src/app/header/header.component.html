@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark fixed-top appheader">
+    <div class="d-inline-flex">
+        <div class="appheader-logo flex-row">
+            <a class="navbar-brand appheader-navbar d-flex" routerLink="/">
+                <img alt="image"
+                     width="30"
+                     height="30"
+                     src="assets/images/pizza.svg"
+                     class="logo"/>
+                <div class="col ml-2">
+                    <div class="pl-0 font-size-14px text-left font-weight-bold logo-text color-white">Планета Пиццы</div>
+                    <div class="pl-0 font-size-11px logo-text color-white">Телефон горячей линии: 8-800-555-35-35</div>
+                </div>
+            </a>
+        </div>
+
+        <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+            <li class="nav-item cursor-pointer ml-25" style="align-self: center">
+                <a [routerLink]="'/catalog'" [routerLinkActive]="['router-link-active']">
+                    <span class="sidebar-font text-truncate">Главная страница</span>
+                </a>
+            </li>
+            <li class="nav-item cursor-pointer ml-25" style="align-self: center">
+                <a (click)="openAddProduct()" [routerLinkActive]="['router-link-active']">
+                    <span class="sidebar-font text-truncate">Добавление товара</span>
+                </a>
+            </li>
+            <li class="nav-item cursor-pointer ml-25" style="align-self: center">
+                <a [routerLink]="'/profile'" [routerLinkActive]="['router-link-active']">
+                    <span class="sidebar-font text-truncate">Личный кабинет</span>
+                </a>
+            </li>
+            <li class="nav-item cursor-pointer ml-25" style="align-self: center">
+                <a [routerLink]="'/orders'" [routerLinkActive]="['router-link-active']">
+                    <span class="sidebar-font text-truncate">Cписок заказов</span>
+                </a>
+            </li>
+            <li class="nav-item cursor-pointer ml-25" style="align-self: center">
+                <a (click)="openBucket()" [routerLinkActive]="['router-link-active']">
+                    <span class="sidebar-font text-truncate">Корзина</span>
+                </a>
+            </li>
+            <li class="nav-item cursor-pointer ml-25 mr-auto" style="align-self: center">
+                <a (click)="logout()">
+                    <span class="sidebar-font text-truncate">Выйти</span>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+            <li class="nav-item cursor-pointer ml-25" style="align-self: center">
+                <a [routerLink]="'/login'" [routerLinkActive]="['router-link-active']">
+                    <span class="sidebar-font text-truncate">Войти</span>
+                </a>
+            </li>
+            <li class="nav-item cursor-pointer ml-25" style="align-self: center">
+                <a [routerLink]="'/register'" [routerLinkActive]="['router-link-active']">
+                    <span class="sidebar-font text-truncate">Регистрация</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
