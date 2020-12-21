@@ -11,6 +11,7 @@ import {CustomerAddressService} from '../../services/customer.address.service';
 import {BucketService} from '../../services/bucket.service';
 import {TITLE_MAP} from '../../constants';
 import {CustomerOrderService} from '../../services/customer-order.service';
+import {DomSanitizer} from "@angular/platform-browser";
 
 
 @Component({
@@ -37,6 +38,7 @@ export class OrderComponent implements OnInit, OnDestroy {
         private bucketService: BucketService,
         private customerOrderService: CustomerOrderService,
         private router: Router,
+        public sanitizer: DomSanitizer
     ) {}
 
     ngOnInit(): void {
@@ -46,6 +48,11 @@ export class OrderComponent implements OnInit, OnDestroy {
         this.loadCustomer();
         this.loadAddresses();
         this.orders = this.getOrderData();
+    }
+
+    getImage(base64: any) {
+        return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
+            + base64);
     }
 
     changeCheckbox(event: any, type: 'nal' | 'cardCourier' | 'cardOnline'): void {

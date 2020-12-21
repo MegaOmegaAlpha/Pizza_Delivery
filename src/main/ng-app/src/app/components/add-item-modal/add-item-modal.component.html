@@ -2,8 +2,9 @@
 <mat-dialog-content>
     <div class="d-flex flex-1 flex-row">
         <div class="d-flex flex-column w-50">
-            <img class="pizza-image" src="{{ data.pizza.imgUrl }}" width="200px" height="200px"
+            <img *ngIf="data.pizza.imgUrl" class="pizza-image" src="{{ data.pizza.imgUrl }}" width="200px" height="200px"
                  alt="pizza preview"/>
+            <img *ngIf="data.pizza.encodedImage" class="pizza-image" [src]="getImage(data.pizza.encodedImage)" width="200px" height="200px" alt="pizza preview"/>
         </div>
         <div class="d-flex flex-column w-50" [formGroup]="form">
             <div class="row no-gutters w-100">

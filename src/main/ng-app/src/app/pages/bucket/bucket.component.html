@@ -12,8 +12,9 @@
         <ng-container *ngFor="let item of data">
             <div class="row no-gutters pl-0 align-items-center p-2">
                 <div class="col-4 ml-2">
-                    <img class="pizza-image" src="{{ item.pizza.imgUrl }}" width="120px" height="120px"
+                    <img *ngIf="item.pizza.imgUrl"  class="pizza-image" src="{{ item.pizza.imgUrl }}" width="120px" height="120px"
                          alt="pizza preview"/>
+                    <img *ngIf="item.pizza.encodedImage" class="pizza-image" [src]="getImage(item.pizza.encodedImage)" width="120px" height="120px" alt="pizza preview"/>
                 </div>
                 <div class="col-7 color-yellow ml-2">
                     <div class="row no-gutters w-100 align-items-center justify-content-between mt-1 align-items-center font-size-16px">

@@ -5,6 +5,7 @@ import {ToastrService} from 'ngx-toastr';
 
 import {PIZZA_CRUSTS, PIZZA_SIZES} from '../../constants';
 import {BucketService} from '../../services/bucket.service';
+import {DomSanitizer} from "@angular/platform-browser";
 
 
 @Component({
@@ -22,7 +23,8 @@ export class AddItemModalComponent implements OnInit {
         public dialogRef: MatDialogRef<AddItemModalComponent>,
         @Inject(MAT_DIALOG_DATA) public data: { pizza: any },
         private bucketService: BucketService,
-        private toasterService: ToastrService
+        private toasterService: ToastrService,
+        public sanitizer: DomSanitizer
     ) {}
 
     ngOnInit(): void {
@@ -30,6 +32,11 @@ export class AddItemModalComponent implements OnInit {
             crust: new FormControl(''),
             size: new FormControl(''),
         });
+    }
+
+    getImage(base64: any) {
+        return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
+            + base64);
     }
 
     addItem(): void {

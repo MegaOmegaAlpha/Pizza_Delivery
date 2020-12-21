@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {TITLE_MAP} from '../../constants';
 import {BucketService} from '../../services/bucket.service';
 import {Router} from '@angular/router';
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
     selector: 'app-bucket',
@@ -17,7 +18,13 @@ export class BucketComponent implements OnInit{
         @Inject(MAT_DIALOG_DATA) public data: any[],
         public bucketService: BucketService,
         public router: Router,
+        public sanitizer: DomSanitizer
     ) {}
+
+    getImage(base64: any) {
+        return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
+            + base64);
+    }
 
     removeFromBucket(item: any): void {
         const index = this.data.indexOf(item);
