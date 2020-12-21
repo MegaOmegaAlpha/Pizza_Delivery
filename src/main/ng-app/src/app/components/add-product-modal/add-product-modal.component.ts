@@ -25,7 +25,6 @@ export class AddProductModalComponent implements OnInit {
     addItem(): void {
         const pizza = this.form.value;
         const file = this.form.value.file;
-        debugger
         this.adminService.savePizza(pizza, file).subscribe(() => {
             this.toasterService.success('Товар успешно сохранен', 'Успех');
             this.closeDialog('');

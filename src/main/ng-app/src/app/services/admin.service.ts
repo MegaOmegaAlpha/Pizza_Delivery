@@ -22,6 +22,9 @@ export class AdminService {
 
     savePizza(pizza: any, file: File): Observable<any> {
         let fd = new FormData();
+        fd.append('name', pizza.name);
+        fd.append('composition', pizza.desc);
+        fd.append('price', pizza.price);
         fd.append('image',  file);
         return this.httpClient.post(`${this.apiUrl}/pizzas`, fd);
     }

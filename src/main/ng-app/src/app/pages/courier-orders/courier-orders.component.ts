@@ -36,9 +36,9 @@ export class CourierOrdersComponent implements OnInit {
             sort: false
         },
         {
-            key: 'totalPrice',
-            header: 'Стоимость',
-            cell: row => `${row.totalPrice}`,
+            key: 'orderDelivery',
+            header: 'Время доставки',
+            cell: row => row.orderDelivery ? `${row.orderDelivery.timeFinish}` : '',
             sort: false
         },
         {

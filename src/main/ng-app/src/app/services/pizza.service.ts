@@ -32,6 +32,7 @@ export class PizzaService {
 
 
 export interface PizzaCatalogItem {
+    encodedImage: any;
     id: number;
     imgUrl?: string;
     name?: string;

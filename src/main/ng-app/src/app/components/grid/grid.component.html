@@ -16,7 +16,7 @@
             <mat-header-cell *matHeaderCellDef class="justify-content-center">
             </mat-header-cell>
             <mat-cell *matCellDef="let row" class="justify-content-center">
-                <fa-icon class="cursor-pointer mr-4" [icon]="faEdit" (click)="edit(row)"></fa-icon>
+                <fa-icon *ngIf="row.orderStatus.name !== 'Доставлено'" class="cursor-pointer mr-4" [icon]="faEdit" (click)="edit(row)"></fa-icon>
             </mat-cell>
         </ng-container>
 

@@ -7,6 +7,7 @@ import {AddItemModalComponent} from '../../components/add-item-modal/add-item-mo
 import {getDefaultDialogConfig} from '../../constants';
 import {TokenStorageService} from '../../core/auth/token-storage.service';
 import {RoleService} from "../../services/role.service";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
     selector: 'app-catalog-menu',
@@ -31,10 +32,16 @@ export class CatalogMenuComponent implements OnInit {
         public dialogService: MatDialog,
         private token: TokenStorageService,
         public roleService: RoleService,
+        public sanitizer: DomSanitizer
     ) {}
 
     ngOnInit(): void {
         this.getPizzasFromServer();
+    }
+
+    getImage(base64: any) {
+        return this.sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
+            + base64);
     }
 
     onAddToBucketClicked = (pizza: PizzaCatalogItem) => {
@@ -67,7 +74,8 @@ export class CatalogMenuComponent implements OnInit {
                 displayedPrice: 'от ' + item.price + ' ₽',
                 price: item.price,
                 available: item.available ? item.available : true,
-                imgUrl: this.pizzaImageMap[item.id]
+                imgUrl: this.pizzaImageMap[item.id],
+                encodedImage: item.encodedImage
             });
         });
     }

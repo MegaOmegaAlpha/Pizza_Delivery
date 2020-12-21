@@ -12,7 +12,8 @@
     <div class="pizza-menu p-2 justify-content-center">
         <div *ngFor="let pizza of pizzaItems" class="pizza-item">
             <div class="row no-gutters w-100 pl-0 align-items-center">
-                <img class="pizza-image" [src]="pizza.imgUrl" width="200px" height="200px" alt="pizza preview"/>
+                <img *ngIf="pizza.imgUrl" class="pizza-image" [src]="pizza.imgUrl" width="200px" height="200px" alt="pizza preview"/>
+                <img *ngIf="pizza.encodedImage" class="pizza-image" [src]="getImage(pizza.encodedImage)" width="200px" height="200px" alt="pizza preview"/>
             </div>
             <div class="row no-gutters w-100 pl-0 mt-2">
                 <div class="col font-size-15px font-weight-bolder">
