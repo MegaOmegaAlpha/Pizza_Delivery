@@ -145,7 +145,7 @@
 </div>
 
 <div class="row no-gutters w-100 mt-auto">
-    <button class="btn btn-primary ml-auto" (click)="packOrder()">
+    <button [disabled]="!orders || orders.length === 0 || getOrderPrice() === 0" class="btn btn-primary ml-auto" (click)="packOrder()">
         Оформить заказ
     </button>
 </div>
