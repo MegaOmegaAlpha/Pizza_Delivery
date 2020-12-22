@@ -24,6 +24,10 @@ $topnav-hover-color: #317ce2;
         .nav-item > a {
             color: #999;
 
+            &.router-link-active {
+                color: white;
+            }
+
             &:hover {
                 color: #fff;
             }
