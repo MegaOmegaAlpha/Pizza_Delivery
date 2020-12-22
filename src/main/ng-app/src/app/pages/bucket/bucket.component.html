@@ -62,12 +62,11 @@
             </div>
         </div>
     </div>
-
 </mat-dialog-content>
 
 <mat-dialog-actions class="mt-4" align="end">
     <button class="btn btn-outline-primary mr-4" mat-dialog-close>Отмена</button>
-    <button class="btn btn-primary yellow-button" (click)="navigateToOrders()" cdkFocusInitial>
+    <button [disabled]="!data || data.length === 0" class="btn btn-primary yellow-button" (click)="navigateToOrders()" cdkFocusInitial>
         Перейти к оформлению заказа
     </button>
 </mat-dialog-actions>

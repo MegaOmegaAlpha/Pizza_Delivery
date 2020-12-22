@@ -38,7 +38,7 @@ export class BucketComponent implements OnInit{
     getOrderPrice(): string {
         const initValue = 0;
         const totalPrice = this.data.reduce((acc, value) => {
-           return acc + parseInt(value.price) * value.count;
+           return acc + parseInt(value.price) * (value.count > 0 ? value.count : 1);
         }, initValue);
         return totalPrice;
     }
