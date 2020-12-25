@@ -9,6 +9,8 @@ import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.repository.C
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.repository.OrderDeliveryRepository;
 import com.ssau.best1team.pizzadelivering.pizzadeliveringmanagement.repository.OrderRepository;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,8 @@ public class CourierOrderResource {
     private OrderRepository orderRepository;
     private CourierRepository courierRepository;
     private ModelMapper modelMapper;
+
+    private Logger logger = LoggerFactory.getLogger(CourierOrderResource.class);
 
     @Autowired
     public CourierOrderResource(OrderDeliveryRepository orderDeliveryRepository,
@@ -56,10 +60,11 @@ public class CourierOrderResource {
 
     public void finishOrderDelivering(long orderId) throws EntityNotFoundException {
         Order finishedOrder = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
-        OrderDelivery orderDelivery = orderDeliveryRepository.findById(finishedOrder.getOrderDelivery().getId()).orElseThrow(EntityNotFoundException::new);
-        orderDelivery.setTimeFinish(Time.valueOf(LocalTime.now()));
-
-        orderDeliveryRepository.save(orderDelivery);
+        if (finishedOrder.getOrderDelivery() != null) {
+            OrderDelivery orderDelivery = orderDeliveryRepository.findById(finishedOrder.getOrderDelivery().getId()).orElseThrow(EntityNotFoundException::new);
+            orderDelivery.setTimeFinish(Time.valueOf(LocalTime.now()));
+            orderDeliveryRepository.save(orderDelivery);
+        }
     }
 
     private OrderDTO convertToDTO(Order order) {
